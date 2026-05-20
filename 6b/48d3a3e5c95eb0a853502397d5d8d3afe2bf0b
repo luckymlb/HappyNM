@@ -1,0 +1,42 @@
+app/src/main/res/drawable/ic_notification.xml
+  s_4401c936b4be41::t_f6dfa58f195e27 1-9
+app/src/main/AndroidManifest.xml
+  s_4401c936b4be41::t_4b4c7219adefae 58-63
+  s_4401c936b4be41::t_fd18a4e8e1a246 10
+app/src/main/kotlin/com/happynm/widget/MainActivity.kt
+  s_4401c936b4be41::t_121293e34b7146 39
+  s_4401c936b4be41::t_79ec2963279565 40
+  s_4401c936b4be41::t_db970afa2dee10 27
+  s_4401c936b4be41::t_bb83fa490028bf 26
+app/src/main/kotlin/com/happynm/widget/widget/MainWidget.kt
+  s_4401c936b4be41::t_236aa789bfd41b 25
+  s_4401c936b4be41::t_f87f9b98010ec0 232,237
+app/src/main/kotlin/com/happynm/widget/service/WidgetRefreshService.kt
+  s_4401c936b4be41::t_f15ccdb0210d3e 1-7,9,11-14,17-19,21-23,26,42-50,52-88,90-99,107-113
+  s_4401c936b4be41::t_f12ff58f524ce3 8,10,24-25,27-30,34-41,51,89,100-106
+  s_4401c936b4be41::t_864059c9714f5b 15-16,20,31-33
+app/src/main/kotlin/com/happynm/widget/data/datastore/SettingsDataStore.kt
+  s_4401c936b4be41::t_6ed150390bf5fd 30
+app/src/main/kotlin/com/happynm/widget/domain/SalaryCalculator.kt
+  s_4401c936b4be41::t_fa0455983b7e0a 62-64,87-88,93-95,98
+app/src/main/kotlin/com/happynm/widget/worker/BootReceiver.kt
+  s_4401c936b4be41::t_c00167d6391927 6,11
+app/src/main/kotlin/com/happynm/widget/worker/WidgetAlarmReceiver.kt
+  s_4401c936b4be41::t_e4669ef2a1b736 37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "6b48d3a3e5c95eb0a853502397d5d8d3afe2bf0b",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
