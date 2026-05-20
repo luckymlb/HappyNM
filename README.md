@@ -12,9 +12,9 @@
 
 ## 截图
 
-| 小组件 | 设置页面 |
-|--------|----------|
-| 实时薪资展示 | 月薪/工时配置 |
+| 桌面小组件 | 设置页面 |
+|:----------:|:--------:|
+| <img src="screenshots/widget_home.png" width="300"/> | <img src="screenshots/app_settings.png" width="300"/> |
 
 ## 技术栈
 
