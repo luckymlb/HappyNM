@@ -21,7 +21,6 @@ import androidx.glance.unit.ColorProvider
 import com.happynm.widget.MainActivity
 import com.happynm.widget.data.datastore.SettingsKeys
 import com.happynm.widget.data.model.UserSettings
-import com.happynm.widget.domain.LunarCalendar
 import com.happynm.widget.domain.SalaryCalculator
 import com.happynm.widget.worker.WidgetAlarmReceiver
 import java.time.LocalDateTime
@@ -51,53 +50,42 @@ private fun MainWidgetContent() {
             .fillMaxSize()
             .background(ColorProvider(Color.White))
             .cornerRadius(24.dp)
-            .padding(horizontal = 20.dp, vertical = 14.dp)
+            .padding(horizontal = 22.dp, vertical = 16.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
         if (status.isWorkDay) {
-            // 顶部信息行
+            // 顶部：标签 + 日薪
             Row(
                 modifier = GlanceModifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "💰 今日已赚",
+                    text = "今日已赚",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF636E72)),
-                        fontSize = 12.sp,
+                        color = ColorProvider(Color(0xFF9CA3AF)),
+                        fontSize = 13.sp,
                         fontWeight = FontWeight.Medium
                     )
                 )
                 Spacer(modifier = GlanceModifier.defaultWeight())
                 Text(
-                    text = "日薪¥${"%.0f".format(status.dailySalary)}",
+                    text = "¥${"%.0f".format(status.dailySalary)}/天",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFFB2BEC3)),
-                        fontSize = 10.sp
+                        color = ColorProvider(Color(0xFFD1D5DB)),
+                        fontSize = 11.sp
                     )
                 )
             }
 
-            Spacer(modifier = GlanceModifier.height(4.dp))
+            Spacer(modifier = GlanceModifier.height(8.dp))
 
             // 核心金额
-            Row(
-                modifier = GlanceModifier.fillMaxWidth(),
-                verticalAlignment = Alignment.Bottom
-            ) {
-                Text(
-                    text = "¥",
-                    style = TextStyle(
-                        color = ColorProvider(Color(0xFF00C853)),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
+            Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     text = "%.2f".format(status.earned),
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF1A1A1A)),
-                        fontSize = 40.sp,
+                        color = ColorProvider(Color(0xFF111827)),
+                        fontSize = 42.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
@@ -109,25 +97,25 @@ private fun MainWidgetContent() {
             Box(
                 modifier = GlanceModifier
                     .fillMaxWidth()
-                    .height(6.dp)
-                    .cornerRadius(3.dp)
-                    .background(ColorProvider(Color(0xFFF1F3F5)))
+                    .height(4.dp)
+                    .cornerRadius(2.dp)
+                    .background(ColorProvider(Color(0xFFF3F4F6)))
             ) {
                 Row(modifier = GlanceModifier.fillMaxWidth()) {
                     if (progressPercent > 0) {
                         Box(
                             modifier = GlanceModifier
-                                .height(6.dp)
+                                .height(4.dp)
                                 .width((progressPercent * 2.8).toInt().dp.coerceAtMost(280.dp))
-                                .cornerRadius(3.dp)
-                                .background(ColorProvider(Color(0xFF00C853)))
+                                .cornerRadius(2.dp)
+                                .background(ColorProvider(Color(0xFF10B981)))
                         ) {}
                     }
                     Spacer(modifier = GlanceModifier.defaultWeight())
                 }
             }
 
-            Spacer(modifier = GlanceModifier.height(6.dp))
+            Spacer(modifier = GlanceModifier.height(8.dp))
 
             // 底部状态行
             Row(
@@ -135,60 +123,54 @@ private fun MainWidgetContent() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if (status.isWorking) "🟢 ${status.statusText}" else "⏸ ${status.statusText}",
+                    text = status.statusText,
                     style = TextStyle(
                         color = ColorProvider(
-                            if (status.isWorking) Color(0xFF00C853) else Color(0xFFB2BEC3)
+                            if (status.isWorking) Color(0xFF10B981) else Color(0xFFD1D5DB)
                         ),
-                        fontSize = 10.sp
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                )
+                Text(
+                    text = " · ${progressPercent}%",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF9CA3AF)),
+                        fontSize = 11.sp
                     )
                 )
                 Spacer(modifier = GlanceModifier.defaultWeight())
                 Text(
-                    text = "${today.format(DateTimeFormatter.ofPattern("M/d EEE", Locale.CHINESE))}",
+                    text = now.format(DateTimeFormatter.ofPattern("HH:mm", Locale.US)),
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFFDFE6E9)),
-                        fontSize = 9.sp
-                    )
-                )
-                Spacer(modifier = GlanceModifier.width(8.dp))
-                Text(
-                    text = "${progressPercent}%",
-                    style = TextStyle(
-                        color = ColorProvider(Color(0xFF636E72)),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
+                        color = ColorProvider(Color(0xFFD1D5DB)),
+                        fontSize = 11.sp
                     )
                 )
             }
         } else {
             // 非工作日
-            Row(
-                modifier = GlanceModifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "${today.format(DateTimeFormatter.ofPattern("M/d EEE", Locale.CHINESE))} · ${LunarCalendar.getLunarDateString(today)}",
-                    style = TextStyle(
-                        color = ColorProvider(Color(0xFFB2BEC3)),
-                        fontSize = 10.sp
-                    )
-                )
-            }
-            Spacer(modifier = GlanceModifier.height(10.dp))
             Text(
-                text = "😴 休息日",
+                text = "${today.format(DateTimeFormatter.ofPattern("M月d日 EEEE", Locale.CHINESE))}",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF1A1A1A)),
-                    fontSize = 28.sp,
+                    color = ColorProvider(Color(0xFFD1D5DB)),
+                    fontSize = 11.sp
+                )
+            )
+            Spacer(modifier = GlanceModifier.height(12.dp))
+            Text(
+                text = "休息日",
+                style = TextStyle(
+                    color = ColorProvider(Color(0xFF111827)),
+                    fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
             Spacer(modifier = GlanceModifier.defaultWeight())
             Text(
-                text = "明天继续搞钱 💪",
+                text = "好好休息，明天继续",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFFB2BEC3)),
+                    color = ColorProvider(Color(0xFF9CA3AF)),
                     fontSize = 11.sp
                 )
             )
