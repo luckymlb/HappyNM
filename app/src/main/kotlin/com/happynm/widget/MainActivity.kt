@@ -169,29 +169,6 @@ private fun SettingsScreen() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // 倒计时设置
-            SettingsSection(title = "📅 倒计时") {
-                SettingsTextField(
-                    label = "目标日期 (格式: 2026-06-15)",
-                    value = settings.targetDateStr,
-                    onValueChange = { value ->
-                        settings = settings.copy(targetDateStr = value)
-                    },
-                    keyboardType = KeyboardType.Text
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                SettingsTextField(
-                    label = "标签",
-                    value = settings.targetLabel,
-                    onValueChange = { value ->
-                        settings = settings.copy(targetLabel = value)
-                    },
-                    keyboardType = KeyboardType.Text
-                )
-            }
-
             Spacer(modifier = Modifier.height(24.dp))
 
             // 保存按钮
