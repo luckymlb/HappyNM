@@ -1,0 +1,19 @@
+README.md
+  s_4401c936b4be41::t_92b08747548164 1-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "230d29a6dc02fb7d6962860aac23b24fa2d1d131",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
