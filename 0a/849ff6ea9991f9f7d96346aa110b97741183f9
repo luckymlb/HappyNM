@@ -1,0 +1,25 @@
+app/src/main/kotlin/com/happynm/widget/HappyNMApp.kt
+  s_4401c936b4be41::t_facf757a334b26 5,14
+app/src/main/kotlin/com/happynm/widget/worker/BootReceiver.kt
+  s_4401c936b4be41::t_1642c088cc97f5 1-13
+app/src/main/AndroidManifest.xml
+  s_4401c936b4be41::t_4b8219ab6f18b8 57-70
+app/src/main/kotlin/com/happynm/widget/widget/MainWidget.kt
+  s_4401c936b4be41::t_635cf0df374cd1 26,52,54,57,65-66,74,80-92,94,101,105,114-115,119,123,132,137-156,158,160-161,164,168,174,179,181,187-188,190,197,201,205,209-210,218,247-256
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "0a849ff6ea9991f9f7d96346aa110b97741183f9",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
