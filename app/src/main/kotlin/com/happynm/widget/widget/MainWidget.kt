@@ -53,7 +53,7 @@ private fun MainWidgetContent(eventCount: Int) {
     Row(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(ColorProvider(Color.White))
+            .background(ColorProvider(Color(0xFFF8FBF9)))
             .cornerRadius(22.dp)
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>())
@@ -69,7 +69,7 @@ private fun MainWidgetContent(eventCount: Int) {
                 text = now.format(DateTimeFormatter.ofPattern("HH:mm", Locale.US)),
                 style = TextStyle(
                     color = ColorProvider(Color(0xFF1A1A2E)),
-                    fontSize = 30.sp,
+                    fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
@@ -84,25 +84,17 @@ private fun MainWidgetContent(eventCount: Int) {
 
             Spacer(modifier = GlanceModifier.height(8.dp))
 
-            // 薪资
+            // 薪资区域
             if (status.isWorkDay) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "今日已赚",
-                        style = TextStyle(
-                            color = ColorProvider(Color(0xFF1B9E5A)),
-                            fontSize = 10.sp
-                        )
+                // 第一行：标签
+                Text(
+                    text = "今日已赚",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        fontSize = 10.sp
                     )
-                    Spacer(modifier = GlanceModifier.width(6.dp))
-                    Text(
-                        text = "● ${status.statusText} ${progressPercent}%",
-                        style = TextStyle(
-                            color = ColorProvider(if (status.isWorking) Color(0xFF2ECC71) else Color(0xFF9CA3AF)),
-                            fontSize = 9.sp
-                        )
-                    )
-                }
+                )
+                // 第二行：金额
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(
                         text = "¥",
@@ -121,22 +113,44 @@ private fun MainWidgetContent(eventCount: Int) {
                         )
                     )
                 }
+                // 第三行：状态 + 百分比
+                Row(
+                    modifier = GlanceModifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "● ${status.statusText}",
+                        style = TextStyle(
+                            color = ColorProvider(if (status.isWorking) Color(0xFF2ECC71) else Color(0xFF9CA3AF)),
+                            fontSize = 9.sp
+                        )
+                    )
+                    Spacer(modifier = GlanceModifier.defaultWeight())
+                    Text(
+                        text = "${progressPercent}%",
+                        style = TextStyle(
+                            color = ColorProvider(Color(0xFF2ECC71)),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
                 // 进度条
-                Spacer(modifier = GlanceModifier.height(4.dp))
+                Spacer(modifier = GlanceModifier.height(3.dp))
                 Box(
                     modifier = GlanceModifier
                         .fillMaxWidth()
-                        .height(4.dp)
-                        .cornerRadius(2.dp)
+                        .height(6.dp)
+                        .cornerRadius(3.dp)
                         .background(ColorProvider(Color(0xFFD1FAE5)))
                 ) {
                     Row(modifier = GlanceModifier.fillMaxWidth()) {
                         if (progressPercent > 0) {
                             Box(
                                 modifier = GlanceModifier
-                                    .height(4.dp)
-                                    .width((progressPercent * 2).dp.coerceAtMost(200.dp))
-                                    .cornerRadius(2.dp)
+                                    .height(6.dp)
+                                    .width((progressPercent * 1.8).toInt().dp.coerceAtMost(180.dp))
+                                    .cornerRadius(3.dp)
                                     .background(ColorProvider(Color(0xFF2ECC71)))
                             ) {}
                         }
@@ -145,10 +159,17 @@ private fun MainWidgetContent(eventCount: Int) {
                 }
             } else {
                 Text(
-                    text = "休息日 ☀️",
+                    text = "休息日",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        fontSize = 10.sp
+                    )
+                )
+                Text(
+                    text = "☀️ 好好休息",
                     style = TextStyle(
                         color = ColorProvider(Color(0xFF6B7280)),
-                        fontSize = 20.sp
+                        fontSize = 18.sp
                     )
                 )
             }
@@ -158,30 +179,37 @@ private fun MainWidgetContent(eventCount: Int) {
 
         // 右侧 2x2 小模块网格
         Column(
-            modifier = GlanceModifier.width(110.dp).fillMaxHeight(),
+            modifier = GlanceModifier.width(114.dp).fillMaxHeight(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(modifier = GlanceModifier.fillMaxWidth()) {
                 // 天气
+                val weatherEmoji = getWeatherEmoji(weather?.iconCode)
                 SmallCard(
-                    emoji = "☀️",
+                    emoji = weatherEmoji,
                     text = weather?.tempRangeText ?: "--°C",
                     textColor = Color(0xFF4A90D9),
                     bgColor = Color(0xFFEFF6FF),
                     modifier = GlanceModifier.defaultWeight()
                 )
-                Spacer(modifier = GlanceModifier.width(4.dp))
+                Spacer(modifier = GlanceModifier.width(5.dp))
                 // 倒计时
                 val days = SalaryCalculator.getCountdownDays(settings.targetDate)
+                val countdownText = when {
+                    days == null -> "未设置"
+                    days == 0L -> "今天!"
+                    days > 0L -> "${days}天"
+                    else -> "已过"
+                }
                 SmallCard(
                     emoji = "📅",
-                    text = if (days != null && days >= 0) "${days}天" else "--",
+                    text = countdownText,
                     textColor = Color(0xFFFF6B8A),
                     bgColor = Color(0xFFFFF0F5),
                     modifier = GlanceModifier.defaultWeight()
                 )
             }
-            Spacer(modifier = GlanceModifier.height(4.dp))
+            Spacer(modifier = GlanceModifier.height(5.dp))
             Row(modifier = GlanceModifier.fillMaxWidth()) {
                 // 专注
                 SmallCard(
@@ -191,10 +219,11 @@ private fun MainWidgetContent(eventCount: Int) {
                     bgColor = Color(0xFFF5F0FF),
                     modifier = GlanceModifier.defaultWeight()
                 )
-                Spacer(modifier = GlanceModifier.width(4.dp))
+                Spacer(modifier = GlanceModifier.width(5.dp))
                 // 日程
+                val scheduleText = if (eventCount > 0) "${eventCount}件" else "✓ 无"
                 SmallCard(
-                    emoji = "$eventCount",
+                    emoji = if (eventCount > 0) "$eventCount" else "✓",
                     text = "日程",
                     textColor = Color(0xFFF39C12),
                     bgColor = Color(0xFFFFF5EB),
@@ -218,19 +247,20 @@ private fun SmallCard(
     Column(
         modifier = modifier
             .background(ColorProvider(bgColor))
-            .padding(6.dp)
-            .cornerRadius(10.dp),
+            .padding(vertical = 8.dp, horizontal = 4.dp)
+            .cornerRadius(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = emoji,
             style = TextStyle(
-                fontSize = if (emojiIsNumber) 16.sp else 14.sp,
+                fontSize = if (emojiIsNumber) 18.sp else 16.sp,
                 fontWeight = if (emojiIsNumber) FontWeight.Bold else FontWeight.Normal,
                 color = if (emojiIsNumber) ColorProvider(textColor) else ColorProvider(Color(0xFF1A1A2E))
             )
         )
+        Spacer(modifier = GlanceModifier.height(2.dp))
         Text(
             text = text,
             style = TextStyle(
@@ -239,6 +269,30 @@ private fun SmallCard(
                 fontWeight = FontWeight.Medium
             )
         )
+    }
+}
+
+private fun getWeatherEmoji(iconCode: String?): String {
+    if (iconCode.isNullOrEmpty()) return "☀️"
+    return when {
+        iconCode.startsWith("1") -> when (iconCode) {
+            "100" -> "☀️"
+            "101", "102", "103" -> "⛅"
+            "104" -> "☁️"
+            "150" -> "🌙"
+            "151", "152", "153" -> "🌙"
+            else -> "☀️"
+        }
+        iconCode.startsWith("3") -> when {
+            iconCode in listOf("300", "301", "302", "303") -> "⛈️"
+            iconCode in listOf("304", "305", "306", "307") -> "🌧️"
+            iconCode in listOf("308", "309", "310") -> "🌧️"
+            iconCode in listOf("311", "312", "313") -> "🌧️"
+            else -> "🌧️"
+        }
+        iconCode.startsWith("4") -> "❄️"
+        iconCode.startsWith("5") -> "🌫️"
+        else -> "☀️"
     }
 }
 
