@@ -21,11 +21,8 @@ import androidx.glance.unit.ColorProvider
 import com.happynm.widget.MainActivity
 import com.happynm.widget.data.datastore.SettingsKeys
 import com.happynm.widget.data.model.UserSettings
-import com.happynm.widget.data.model.WeatherInfo
-import com.happynm.widget.data.repository.CalendarRepository
 import com.happynm.widget.domain.LunarCalendar
 import com.happynm.widget.domain.SalaryCalculator
-import kotlinx.serialization.json.Json
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -33,266 +30,176 @@ import java.util.Locale
 class MainWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val eventCount = CalendarRepository.getTodayEventCount(context)
         provideContent {
-            MainWidgetContent(eventCount)
+            MainWidgetContent()
         }
     }
 }
 
 @Composable
-private fun MainWidgetContent(eventCount: Int) {
+private fun MainWidgetContent() {
     val prefs = currentState<Preferences>()
     val settings = prefsToSettings(prefs)
-    val weather = prefsToWeather(prefs)
     val status = SalaryCalculator.calculate(settings)
     val now = LocalDateTime.now()
     val today = now.toLocalDate()
     val progressPercent = (status.progress * 100).toInt()
 
-    Row(
+    Column(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(ColorProvider(Color(0xFFF8FBF9)))
+            .background(ColorProvider(Color(0xFFF6FBF8)))
             .cornerRadius(22.dp)
-            .padding(14.dp)
+            .padding(16.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
-        // 左侧主要信息
-        Column(
-            modifier = GlanceModifier
-                .defaultWeight()
-                .fillMaxHeight()
+        // 顶部：时间 + 日薪参考
+        Row(
+            modifier = GlanceModifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // 时间
             Text(
                 text = now.format(DateTimeFormatter.ofPattern("HH:mm", Locale.US)),
                 style = TextStyle(
                     color = ColorProvider(Color(0xFF1A1A2E)),
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
                 )
             )
-            // 日期 + 农历
+            Spacer(modifier = GlanceModifier.width(6.dp))
             Text(
-                text = "${today.format(DateTimeFormatter.ofPattern("M月d日 EEEE", Locale.CHINESE))} · ${LunarCalendar.getLunarDateString(today)}",
+                text = "${today.format(DateTimeFormatter.ofPattern("M/d EEE", Locale.CHINESE))} · ${LunarCalendar.getLunarDateString(today)}",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF6B7280)),
+                    color = ColorProvider(Color(0xFF9CA3AF)),
                     fontSize = 10.sp
                 )
             )
-
-            Spacer(modifier = GlanceModifier.height(8.dp))
-
-            // 薪资区域
-            if (status.isWorkDay) {
-                // 第一行：标签
+            Spacer(modifier = GlanceModifier.defaultWeight())
+            if (status.isWorkDay && status.dailySalary > 0) {
                 Text(
-                    text = "今日已赚",
+                    text = "日薪 ¥${"%.0f".format(status.dailySalary)}",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        color = ColorProvider(Color(0xFF9CA3AF)),
                         fontSize = 10.sp
                     )
                 )
-                // 第二行：金额
-                Row(verticalAlignment = Alignment.Bottom) {
-                    Text(
-                        text = "¥",
-                        style = TextStyle(
-                            color = ColorProvider(Color(0xFF2ECC71)),
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Medium
-                        )
+            }
+        }
+
+        Spacer(modifier = GlanceModifier.height(6.dp))
+
+        if (status.isWorkDay) {
+            // 核心：今日已赚
+            Text(
+                text = "今日已赚",
+                style = TextStyle(
+                    color = ColorProvider(Color(0xFF6B7280)),
+                    fontSize = 11.sp
+                )
+            )
+            Spacer(modifier = GlanceModifier.height(2.dp))
+            // 大金额
+            Row(verticalAlignment = Alignment.Bottom) {
+                Text(
+                    text = "¥",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF2ECC71)),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
                     )
-                    Text(
-                        text = "%.2f".format(status.earned),
-                        style = TextStyle(
-                            color = ColorProvider(Color(0xFF1B9E5A)),
-                            fontSize = 28.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                )
+                Text(
+                    text = "%.2f".format(status.earned),
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-                // 第三行：状态 + 百分比
-                Row(
-                    modifier = GlanceModifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "● ${status.statusText}",
-                        style = TextStyle(
-                            color = ColorProvider(if (status.isWorking) Color(0xFF2ECC71) else Color(0xFF9CA3AF)),
-                            fontSize = 9.sp
-                        )
+                )
+            }
+
+            Spacer(modifier = GlanceModifier.defaultWeight())
+
+            // 底部：状态 + 进度条
+            Row(
+                modifier = GlanceModifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "● ${status.statusText}",
+                    style = TextStyle(
+                        color = ColorProvider(if (status.isWorking) Color(0xFF2ECC71) else Color(0xFF9CA3AF)),
+                        fontSize = 10.sp
                     )
-                    Spacer(modifier = GlanceModifier.defaultWeight())
-                    Text(
-                        text = "${progressPercent}%",
-                        style = TextStyle(
-                            color = ColorProvider(Color(0xFF2ECC71)),
-                            fontSize = 9.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                )
+                Spacer(modifier = GlanceModifier.defaultWeight())
+                Text(
+                    text = "${progressPercent}%",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-                // 进度条
-                Spacer(modifier = GlanceModifier.height(3.dp))
-                Box(
-                    modifier = GlanceModifier
-                        .fillMaxWidth()
-                        .height(6.dp)
-                        .cornerRadius(3.dp)
-                        .background(ColorProvider(Color(0xFFD1FAE5)))
-                ) {
-                    Row(modifier = GlanceModifier.fillMaxWidth()) {
-                        if (progressPercent > 0) {
-                            Box(
-                                modifier = GlanceModifier
-                                    .height(6.dp)
-                                    .width((progressPercent * 1.8).toInt().dp.coerceAtMost(180.dp))
-                                    .cornerRadius(3.dp)
-                                    .background(ColorProvider(Color(0xFF2ECC71)))
-                            ) {}
-                        }
-                        Spacer(modifier = GlanceModifier.defaultWeight())
+                )
+                Spacer(modifier = GlanceModifier.width(6.dp))
+                Text(
+                    text = "${settings.workStartHour}:${"%02d".format(settings.workStartMinute)}–${settings.workEndHour}:${"%02d".format(settings.workEndMinute)}",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFFB0B8C4)),
+                        fontSize = 9.sp
+                    )
+                )
+            }
+            Spacer(modifier = GlanceModifier.height(4.dp))
+            // 进度条
+            Box(
+                modifier = GlanceModifier
+                    .fillMaxWidth()
+                    .height(6.dp)
+                    .cornerRadius(3.dp)
+                    .background(ColorProvider(Color(0xFFD1FAE5)))
+            ) {
+                Row(modifier = GlanceModifier.fillMaxWidth()) {
+                    if (progressPercent > 0) {
+                        Box(
+                            modifier = GlanceModifier
+                                .height(6.dp)
+                                .width((progressPercent * 2.4).toInt().dp.coerceAtMost(240.dp))
+                                .cornerRadius(3.dp)
+                                .background(ColorProvider(Color(0xFF2ECC71)))
+                        ) {}
                     }
+                    Spacer(modifier = GlanceModifier.defaultWeight())
                 }
-            } else {
-                Text(
-                    text = "休息日",
-                    style = TextStyle(
-                        color = ColorProvider(Color(0xFF1B9E5A)),
-                        fontSize = 10.sp
-                    )
-                )
-                Text(
-                    text = "☀️ 好好休息",
-                    style = TextStyle(
-                        color = ColorProvider(Color(0xFF6B7280)),
-                        fontSize = 18.sp
-                    )
-                )
             }
-        }
-
-        Spacer(modifier = GlanceModifier.width(10.dp))
-
-        // 右侧 2x2 小模块网格
-        Column(
-            modifier = GlanceModifier.width(114.dp).fillMaxHeight(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(modifier = GlanceModifier.fillMaxWidth()) {
-                // 天气
-                val weatherEmoji = getWeatherEmoji(weather?.iconCode)
-                SmallCard(
-                    emoji = weatherEmoji,
-                    text = weather?.tempRangeText ?: "--°C",
-                    textColor = Color(0xFF4A90D9),
-                    bgColor = Color(0xFFEFF6FF),
-                    modifier = GlanceModifier.defaultWeight()
+        } else {
+            // 非工作日
+            Spacer(modifier = GlanceModifier.height(8.dp))
+            Text(
+                text = "今天不用上班",
+                style = TextStyle(
+                    color = ColorProvider(Color(0xFF6B7280)),
+                    fontSize = 11.sp
                 )
-                Spacer(modifier = GlanceModifier.width(5.dp))
-                // 倒计时
-                val days = SalaryCalculator.getCountdownDays(settings.targetDate)
-                val countdownText = when {
-                    days == null -> "未设置"
-                    days == 0L -> "今天!"
-                    days > 0L -> "${days}天"
-                    else -> "已过"
-                }
-                SmallCard(
-                    emoji = "📅",
-                    text = countdownText,
-                    textColor = Color(0xFFFF6B8A),
-                    bgColor = Color(0xFFFFF0F5),
-                    modifier = GlanceModifier.defaultWeight()
-                )
-            }
-            Spacer(modifier = GlanceModifier.height(5.dp))
-            Row(modifier = GlanceModifier.fillMaxWidth()) {
-                // 专注
-                SmallCard(
-                    emoji = "🎯",
-                    text = "专注",
-                    textColor = Color(0xFF9B59B6),
-                    bgColor = Color(0xFFF5F0FF),
-                    modifier = GlanceModifier.defaultWeight()
-                )
-                Spacer(modifier = GlanceModifier.width(5.dp))
-                // 日程
-                val scheduleText = if (eventCount > 0) "${eventCount}件" else "✓ 无"
-                SmallCard(
-                    emoji = if (eventCount > 0) "$eventCount" else "✓",
-                    text = "日程",
-                    textColor = Color(0xFFF39C12),
-                    bgColor = Color(0xFFFFF5EB),
-                    modifier = GlanceModifier.defaultWeight(),
-                    emojiIsNumber = true
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun SmallCard(
-    emoji: String,
-    text: String,
-    textColor: Color,
-    bgColor: Color,
-    modifier: GlanceModifier = GlanceModifier,
-    emojiIsNumber: Boolean = false
-) {
-    Column(
-        modifier = modifier
-            .background(ColorProvider(bgColor))
-            .padding(vertical = 8.dp, horizontal = 4.dp)
-            .cornerRadius(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = emoji,
-            style = TextStyle(
-                fontSize = if (emojiIsNumber) 18.sp else 16.sp,
-                fontWeight = if (emojiIsNumber) FontWeight.Bold else FontWeight.Normal,
-                color = if (emojiIsNumber) ColorProvider(textColor) else ColorProvider(Color(0xFF1A1A2E))
             )
-        )
-        Spacer(modifier = GlanceModifier.height(2.dp))
-        Text(
-            text = text,
-            style = TextStyle(
-                color = ColorProvider(textColor),
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Medium
+            Spacer(modifier = GlanceModifier.height(4.dp))
+            Text(
+                text = "☀️ 好好休息",
+                style = TextStyle(
+                    color = ColorProvider(Color(0xFF1B9E5A)),
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold
+                )
             )
-        )
-    }
-}
-
-private fun getWeatherEmoji(iconCode: String?): String {
-    if (iconCode.isNullOrEmpty()) return "☀️"
-    return when {
-        iconCode.startsWith("1") -> when (iconCode) {
-            "100" -> "☀️"
-            "101", "102", "103" -> "⛅"
-            "104" -> "☁️"
-            "150" -> "🌙"
-            "151", "152", "153" -> "🌙"
-            else -> "☀️"
+            Spacer(modifier = GlanceModifier.defaultWeight())
+            Text(
+                text = "下个工作日继续搞钱 💰",
+                style = TextStyle(
+                    color = ColorProvider(Color(0xFF9CA3AF)),
+                    fontSize = 10.sp
+                )
+            )
         }
-        iconCode.startsWith("3") -> when {
-            iconCode in listOf("300", "301", "302", "303") -> "⛈️"
-            iconCode in listOf("304", "305", "306", "307") -> "🌧️"
-            iconCode in listOf("308", "309", "310") -> "🌧️"
-            iconCode in listOf("311", "312", "313") -> "🌧️"
-            else -> "🌧️"
-        }
-        iconCode.startsWith("4") -> "❄️"
-        iconCode.startsWith("5") -> "🌫️"
-        else -> "☀️"
     }
 }
 
@@ -313,12 +220,6 @@ private fun prefsToSettings(prefs: Preferences): UserSettings {
         workDays = prefs[SettingsKeys.WORK_DAYS]?.split(",")?.mapNotNull { it.toIntOrNull() }
             ?: listOf(1, 2, 3, 4, 5)
     )
-}
-
-private fun prefsToWeather(prefs: Preferences): WeatherInfo? {
-    return prefs[SettingsKeys.CACHED_WEATHER]?.let {
-        runCatching { Json.decodeFromString<WeatherInfo>(it) }.getOrNull()
-    }
 }
 
 class MainWidgetReceiver : GlanceAppWidgetReceiver() {
