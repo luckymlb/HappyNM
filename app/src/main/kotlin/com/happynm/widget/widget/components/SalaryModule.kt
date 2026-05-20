@@ -25,13 +25,28 @@ fun SalaryModule(settings: UserSettings, modifier: GlanceModifier = GlanceModifi
             .padding(12.dp)
             .cornerRadius(14.dp)
     ) {
-        Text(
-            text = "今日已赚",
-            style = TextStyle(
-                color = ColorProvider(Color(0xFF1B9E5A)),
-                fontSize = 11.sp
+        Row(
+            modifier = GlanceModifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "今日已赚",
+                style = TextStyle(
+                    color = ColorProvider(Color(0xFF1B9E5A)),
+                    fontSize = 11.sp
+                )
             )
-        )
+            if (status.isWorkDay && status.dailySalary > 0) {
+                Spacer(modifier = GlanceModifier.defaultWeight())
+                Text(
+                    text = "日薪 ¥${"%.0f".format(status.dailySalary)}",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF9CA3AF)),
+                        fontSize = 10.sp
+                    )
+                )
+            }
+        }
         Spacer(modifier = GlanceModifier.height(2.dp))
         if (status.isWorkDay) {
             Row(verticalAlignment = Alignment.Bottom) {
@@ -54,7 +69,7 @@ fun SalaryModule(settings: UserSettings, modifier: GlanceModifier = GlanceModifi
             }
         } else {
             Text(
-                text = "休息日",
+                text = "休息日 ☀️",
                 style = TextStyle(
                     color = ColorProvider(Color(0xFF6B7280)),
                     fontSize = 18.sp

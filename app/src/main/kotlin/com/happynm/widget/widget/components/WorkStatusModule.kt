@@ -24,6 +24,7 @@ fun WorkStatusModule(settings: UserSettings, modifier: GlanceModifier = GlanceMo
     )
 
     val statusColor = if (status.isWorking) Color(0xFF2ECC71) else Color(0xFF9CA3AF)
+    val progressPercent = (status.progress * 100).toInt()
 
     Column(
         modifier = modifier
@@ -52,13 +53,38 @@ fun WorkStatusModule(settings: UserSettings, modifier: GlanceModifier = GlanceMo
                     fontSize = 11.sp
                 )
             )
-            Spacer(modifier = GlanceModifier.width(8.dp))
+        }
+        Spacer(modifier = GlanceModifier.height(6.dp))
+        // 进度条：轨道 + 填充
+        Box(
+            modifier = GlanceModifier
+                .fillMaxWidth()
+                .height(8.dp)
+                .cornerRadius(4.dp)
+                .background(ColorProvider(Color(0xFFE5E7EB)))
+        ) {
+            Row(modifier = GlanceModifier.fillMaxWidth()) {
+                if (progressPercent > 0) {
+                    Box(
+                        modifier = GlanceModifier
+                            .height(8.dp)
+                            .width((progressPercent * 2).dp.coerceAtMost(200.dp))
+                            .cornerRadius(4.dp)
+                            .background(ColorProvider(Color(0xFF4A90D9)))
+                    ) {}
+                }
+                Spacer(modifier = GlanceModifier.defaultWeight())
+            }
+        }
+        Spacer(modifier = GlanceModifier.height(4.dp))
+        Row(modifier = GlanceModifier.fillMaxWidth()) {
+            Spacer(modifier = GlanceModifier.defaultWeight())
             Text(
-                text = "${(status.progress * 100).toInt()}%",
+                text = "${progressPercent}%",
                 style = TextStyle(
                     color = ColorProvider(Color(0xFF4A90D9)),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium
                 )
             )
         }

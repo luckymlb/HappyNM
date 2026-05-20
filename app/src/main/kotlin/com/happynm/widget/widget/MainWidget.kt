@@ -18,26 +18,27 @@ import com.happynm.widget.MainActivity
 import com.happynm.widget.data.datastore.SettingsKeys
 import com.happynm.widget.data.model.UserSettings
 import com.happynm.widget.data.model.WeatherInfo
+import com.happynm.widget.data.repository.CalendarRepository
 import com.happynm.widget.widget.components.*
 import kotlinx.serialization.json.Json
 
 class MainWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
+        val eventCount = CalendarRepository.getTodayEventCount(context)
         provideContent {
-            MainWidgetContent()
+            MainWidgetContent(eventCount)
         }
     }
 }
 
 @Composable
-private fun MainWidgetContent() {
+private fun MainWidgetContent(eventCount: Int) {
     val prefs = currentState<Preferences>()
     val settings = prefsToSettings(prefs)
     val weather = prefsToWeather(prefs)
 
-    // 4x2 横向长方形布局：左侧主信息 + 右侧小模块
-    Row(
+    Column(
         modifier = GlanceModifier
             .fillMaxSize()
             .background(ColorProvider(Color.White))
@@ -45,51 +46,52 @@ private fun MainWidgetContent() {
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
-        // 左侧：时钟 + 薪资 + 工作状态
-        Column(
-            modifier = GlanceModifier
-                .defaultWeight()
-                .fillMaxHeight()
+        // 第一行：时钟 + 天气
+        Row(
+            modifier = GlanceModifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Top
         ) {
-            ClockModule(modifier = GlanceModifier.fillMaxWidth())
-            Spacer(modifier = GlanceModifier.height(8.dp))
-            SalaryModule(
-                settings = settings,
-                modifier = GlanceModifier.fillMaxWidth()
-            )
-            Spacer(modifier = GlanceModifier.defaultWeight())
-            WorkStatusModule(
-                settings = settings,
-                modifier = GlanceModifier.fillMaxWidth()
+            ClockModule(modifier = GlanceModifier.defaultWeight())
+            Spacer(modifier = GlanceModifier.width(8.dp))
+            WeatherModule(
+                weather = weather,
+                modifier = GlanceModifier.width(68.dp)
             )
         }
 
-        Spacer(modifier = GlanceModifier.width(10.dp))
+        Spacer(modifier = GlanceModifier.height(8.dp))
 
-        // 右侧：天气 / 倒计时 / 专注 / 日程 四宫格
-        Column(
-            modifier = GlanceModifier
-                .width(80.dp)
-                .fillMaxHeight()
-        ) {
-            WeatherModule(
-                weather = weather,
-                modifier = GlanceModifier.fillMaxWidth()
+        // 第二行：薪资 + 倒计时
+        Row(modifier = GlanceModifier.fillMaxWidth()) {
+            SalaryModule(
+                settings = settings,
+                modifier = GlanceModifier.defaultWeight()
             )
-            Spacer(modifier = GlanceModifier.height(6.dp))
+            Spacer(modifier = GlanceModifier.width(8.dp))
             CountdownModule(
                 settings = settings,
-                modifier = GlanceModifier.fillMaxWidth()
+                modifier = GlanceModifier.width(68.dp)
             )
-            Spacer(modifier = GlanceModifier.height(6.dp))
-            Row(modifier = GlanceModifier.fillMaxWidth()) {
-                FocusModule(modifier = GlanceModifier.defaultWeight())
-                Spacer(modifier = GlanceModifier.width(4.dp))
-                ScheduleModule(
-                    eventCount = 2,
-                    modifier = GlanceModifier.defaultWeight()
-                )
-            }
+        }
+
+        Spacer(modifier = GlanceModifier.defaultWeight())
+
+        // 第三行：工作进度 + 专注 + 日程
+        Row(
+            modifier = GlanceModifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            WorkStatusModule(
+                settings = settings,
+                modifier = GlanceModifier.defaultWeight()
+            )
+            Spacer(modifier = GlanceModifier.width(6.dp))
+            FocusModule(modifier = GlanceModifier.width(48.dp))
+            Spacer(modifier = GlanceModifier.width(6.dp))
+            ScheduleModule(
+                eventCount = eventCount,
+                modifier = GlanceModifier.width(48.dp)
+            )
         }
     }
 }
