@@ -1,0 +1,28 @@
+app/src/main/kotlin/com/happynm/widget/widget/MainWidget.kt
+  s_4401c936b4be41::t_4e1699c35dc028 21
+  s_4401c936b4be41::t_cee4daff83183f 41,49-52,54-65,68,70-71,73,77,79-82,84,86-91,93
+  s_4401c936b4be41::t_51a1067dc6a7ba 28,30,36
+  s_4401c936b4be41::t_4a926c7e80dc06 92
+app/src/main/kotlin/com/happynm/widget/data/repository/CalendarRepository.kt
+  s_4401c936b4be41::t_0cc0f40f0324ce 1-48
+app/src/main/kotlin/com/happynm/widget/widget/components/WorkStatusModule.kt
+  s_4401c936b4be41::t_018b5ea187a467 27,56-81,83,86-87
+app/src/main/kotlin/com/happynm/widget/widget/components/SalaryModule.kt
+  s_4401c936b4be41::t_7a99d543d80eac 28-37,39-49,72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "81ed38e4dfd916f747f72d81ec9f9fb19c441b18",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
