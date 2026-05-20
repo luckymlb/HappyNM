@@ -100,7 +100,7 @@ private fun SettingsScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("工作日薪", color = Color(0xFF1A1A2E)) },
+                title = { Text("薪动时刻", color = Color(0xFF1A1A2E)) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFFFAFBFC))
             )
         },

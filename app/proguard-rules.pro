@@ -5,3 +5,6 @@
 
 -dontwarn io.ktor.**
 -keep class io.ktor.** { *; }
+
+-dontwarn org.slf4j.**
+-dontwarn kotlinx.atomicfu.**

@@ -4,20 +4,69 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- 圆形底座 - 浅薄荷绿 -->
     <path
-        android:fillColor="#1A3A2A"
-        android:pathData="M0,0h108v108h-108z"/>
+        android:fillColor="#B8F0D8"
+        android:pathData="M54,30 C67.25,30 78,40.75 78,54 C78,67.25 67.25,78 54,78 C40.75,78 30,67.25 30,54 C30,40.75 40.75,30 54,30 Z"/>
+
+    <!-- 钱袋主体 - 清新绿 -->
     <path
-        android:fillColor="#34C759"
-        android:pathData="M34,40 L54,30 L74,40 L74,68 L54,78 L34,68 Z"
-        android:strokeWidth="0"/>
+        android:fillColor="#4CD080"
+        android:pathData="M42,52 C42,48 44,45 48,44 L60,44 C64,45 66,48 66,52 L66,66 C66,70 63,73 59,73 L49,73 C45,73 42,70 42,66 Z"/>
+
+    <!-- 钱袋口 - 圆弧扎口 -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M48,50 L52,50 L52,65 L48,65 Z"/>
+        android:fillColor="#3BB86E"
+        android:pathData="M46,44 Q54,38 62,44 L60,44 L48,44 Z"/>
+
+    <!-- 钱袋扎口绳 -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M56,55 L60,55 L60,65 L56,65 Z"/>
+        android:strokeWidth="2"
+        android:strokeColor="#2D9B5A"
+        android:fillColor="#00000000"
+        android:pathData="M48,44 Q54,41 60,44"/>
+
+    <!-- ¥ 符号 -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M44,58 L48,58 L48,65 L44,65 Z"/>
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="#00000000"
+        android:pathData="M50,54 L54,59 L58,54 M50.5,57.5 L57.5,57.5 M50.5,60.5 L57.5,60.5 M54,59 L54,67"/>
+
+    <!-- 左上小叶子 -->
+    <path
+        android:fillColor="#7BE8A4"
+        android:pathData="M44,38 Q42,34 46,33 Q48,36 44,38 Z"/>
+
+    <!-- 右上小叶子 -->
+    <path
+        android:fillColor="#7BE8A4"
+        android:pathData="M64,38 Q66,34 62,33 Q60,36 64,38 Z"/>
+
+    <!-- 左下小圆点装饰 -->
+    <path
+        android:fillColor="#A8EDCA"
+        android:pathData="M34,68 A2,2 0 1,1 38,68 A2,2 0 1,1 34,68 Z"/>
+
+    <!-- 右下小圆点装饰 -->
+    <path
+        android:fillColor="#A8EDCA"
+        android:pathData="M70,68 A2,2 0 1,1 74,68 A2,2 0 1,1 70,68 Z"/>
+
+    <!-- 顶部小星星 -->
+    <path
+        android:fillColor="#FFE066"
+        android:pathData="M54,26 L55,24 L56,26 L58,27 L56,28 L55,30 L54,28 L52,27 Z"/>
+
+    <!-- 左上小星星 -->
+    <path
+        android:fillColor="#FFE066"
+        android:pathData="M36,34 L37,32 L38,34 L40,35 L38,36 L37,38 L36,36 L34,35 Z"/>
+
+    <!-- 右上小星星 -->
+    <path
+        android:fillColor="#FFE066"
+        android:pathData="M72,36 L73,34 L74,36 L76,37 L74,38 L73,40 L72,38 L70,37 Z"/>
+
 </vector>
