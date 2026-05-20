@@ -21,21 +21,21 @@ fun FocusModule(modifier: GlanceModifier = GlanceModifier) {
     Column(
         modifier = modifier
             .background(ColorProvider(Color(0xFFF5F0FF)))
-            .padding(10.dp)
-            .cornerRadius(14.dp)
+            .padding(6.dp)
+            .cornerRadius(12.dp)
             .clickable(actionStartActivity<MainActivity>()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = "🎯",
-            style = TextStyle(fontSize = 16.sp)
+            style = TextStyle(fontSize = 14.sp)
         )
-        Spacer(modifier = GlanceModifier.height(2.dp))
         Text(
             text = "专注",
             style = TextStyle(
                 color = ColorProvider(Color(0xFF9B59B6)),
-                fontSize = 11.sp,
+                fontSize = 10.sp,
                 fontWeight = FontWeight.Medium
             )
         )

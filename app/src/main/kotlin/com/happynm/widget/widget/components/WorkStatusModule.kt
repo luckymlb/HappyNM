@@ -30,8 +30,8 @@ fun WorkStatusModule(settings: UserSettings, modifier: GlanceModifier = GlanceMo
         modifier = modifier
             .fillMaxWidth()
             .background(ColorProvider(Color(0xFFF5F7FA)))
-            .padding(10.dp)
-            .cornerRadius(14.dp)
+            .padding(8.dp)
+            .cornerRadius(12.dp)
     ) {
         Row(
             modifier = GlanceModifier.fillMaxWidth(),
@@ -41,52 +41,41 @@ fun WorkStatusModule(settings: UserSettings, modifier: GlanceModifier = GlanceMo
                 text = "● ${status.statusText}",
                 style = TextStyle(
                     color = ColorProvider(statusColor),
-                    fontSize = 12.sp,
+                    fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
             )
-            Spacer(modifier = GlanceModifier.defaultWeight())
-            Text(
-                text = timeRange,
-                style = TextStyle(
-                    color = ColorProvider(Color(0xFF9CA3AF)),
-                    fontSize = 11.sp
-                )
-            )
-        }
-        Spacer(modifier = GlanceModifier.height(6.dp))
-        // 进度条：轨道 + 填充
-        Box(
-            modifier = GlanceModifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .cornerRadius(4.dp)
-                .background(ColorProvider(Color(0xFFE5E7EB)))
-        ) {
-            Row(modifier = GlanceModifier.fillMaxWidth()) {
-                if (progressPercent > 0) {
-                    Box(
-                        modifier = GlanceModifier
-                            .height(8.dp)
-                            .width((progressPercent * 2).dp.coerceAtMost(200.dp))
-                            .cornerRadius(4.dp)
-                            .background(ColorProvider(Color(0xFF4A90D9)))
-                    ) {}
-                }
-                Spacer(modifier = GlanceModifier.defaultWeight())
-            }
-        }
-        Spacer(modifier = GlanceModifier.height(4.dp))
-        Row(modifier = GlanceModifier.fillMaxWidth()) {
             Spacer(modifier = GlanceModifier.defaultWeight())
             Text(
                 text = "${progressPercent}%",
                 style = TextStyle(
                     color = ColorProvider(Color(0xFF4A90D9)),
                     fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Bold
                 )
             )
+        }
+        Spacer(modifier = GlanceModifier.height(4.dp))
+        // 进度条
+        Box(
+            modifier = GlanceModifier
+                .fillMaxWidth()
+                .height(6.dp)
+                .cornerRadius(3.dp)
+                .background(ColorProvider(Color(0xFFE5E7EB)))
+        ) {
+            Row(modifier = GlanceModifier.fillMaxWidth()) {
+                if (progressPercent > 0) {
+                    Box(
+                        modifier = GlanceModifier
+                            .height(6.dp)
+                            .width((progressPercent * 2).dp.coerceAtMost(200.dp))
+                            .cornerRadius(3.dp)
+                            .background(ColorProvider(Color(0xFF4A90D9)))
+                    ) {}
+                }
+                Spacer(modifier = GlanceModifier.defaultWeight())
+            }
         }
     }
 }
