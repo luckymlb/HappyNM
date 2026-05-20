@@ -114,8 +114,15 @@ private fun MainWidgetContent() {
                     .background(ColorProvider(Color(0xFFF3F4F6)))
             ) {
                 // 填充部分
-                Row(modifier = GlanceModifier.fillMaxSize()) {
-                    if (progressPercent > 0) {
+                if (progressPercent >= 100) {
+                    Box(
+                        modifier = GlanceModifier
+                            .fillMaxSize()
+                            .cornerRadius(10.dp)
+                            .background(ColorProvider(Color(0xFF10B981)))
+                    ) {}
+                } else if (progressPercent > 0) {
+                    Row(modifier = GlanceModifier.fillMaxSize()) {
                         Box(
                             modifier = GlanceModifier
                                 .fillMaxHeight()
@@ -123,8 +130,8 @@ private fun MainWidgetContent() {
                                 .cornerRadius(10.dp)
                                 .background(ColorProvider(Color(0xFF10B981)))
                         ) {}
+                        Spacer(modifier = GlanceModifier.defaultWeight())
                     }
-                    Spacer(modifier = GlanceModifier.defaultWeight())
                 }
                 // 进度条上的文字
                 Row(

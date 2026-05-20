@@ -216,13 +216,13 @@ private fun EarningsPreviewCard(status: SalaryCalculator.SalaryStatus) {
                 LinearProgressIndicator(
                     progress = { status.progress },
                     modifier = Modifier.fillMaxWidth().height(6.dp),
-                    color = Color(0xFF4A90D9),
+                    color = Color(0xFF10B981),
                     trackColor = Color(0xFFE5E7EB)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(status.statusText, color = Color(0xFF6B7280), fontSize = 12.sp)
-                    Text("${(status.progress * 100).toInt()}%", color = Color(0xFF4A90D9), fontSize = 12.sp)
+                    Text("${(status.progress * 100).toInt()}%", color = Color(0xFF10B981), fontSize = 12.sp)
                 }
             } else {
                 Text("今日休息 ☀️", color = Color(0xFF6B7280), fontSize = 24.sp)
