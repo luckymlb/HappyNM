@@ -1,0 +1,22 @@
+app/src/main/kotlin/com/happynm/widget/data/model/UserSettings.kt
+  s_4401c936b4be41::t_8915d216be6be1 11,13
+app/src/main/kotlin/com/happynm/widget/MainActivity.kt
+  s_4401c936b4be41::t_ca0098db3f7e0e 98,107
+  s_4401c936b4be41::t_04b263b257ceb7 183
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "506c56b8824236dbcdd7998c37e8733c5afd484f",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
