@@ -22,6 +22,7 @@ import com.happynm.widget.MainActivity
 import com.happynm.widget.data.datastore.SettingsKeys
 import com.happynm.widget.data.model.UserSettings
 import com.happynm.widget.domain.SalaryCalculator
+import com.happynm.widget.service.WidgetRefreshService
 import com.happynm.widget.worker.WidgetAlarmReceiver
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -228,11 +229,11 @@ class MainWidgetReceiver : GlanceAppWidgetReceiver() {
 
     override fun onEnabled(context: Context) {
         super.onEnabled(context)
-        WidgetAlarmReceiver.schedule(context)
+        WidgetRefreshService.start(context)
     }
 
     override fun onDisabled(context: Context) {
         super.onDisabled(context)
-        WidgetAlarmReceiver.cancel(context)
+        WidgetRefreshService.stop(context)
     }
 }

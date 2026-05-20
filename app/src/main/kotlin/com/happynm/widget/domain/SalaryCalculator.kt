@@ -59,9 +59,9 @@ object SalaryCalculator {
             )
         }
 
-        val totalWorkMinutes = getTotalWorkMinutes(settings)
-        val effectiveMinutes = getEffectiveWorkedMinutes(currentTime, settings)
-        val progress = (effectiveMinutes.toFloat() / totalWorkMinutes).coerceIn(0f, 1f)
+        val totalWorkSeconds = getTotalWorkMinutes(settings) * 60.0
+        val effectiveSeconds = getEffectiveWorkedSeconds(currentTime, settings)
+        val progress = (effectiveSeconds / totalWorkSeconds).coerceIn(0.0, 1.0).toFloat()
         val earned = dailySalary * progress
 
         return SalaryStatus(
@@ -84,18 +84,18 @@ object SalaryCalculator {
         return totalMinutes - settings.lunchBreakMinutes
     }
 
-    private fun getEffectiveWorkedMinutes(currentTime: LocalTime, settings: UserSettings): Int {
-        val minutesSinceStart = Duration.between(settings.workStartTime, currentTime).toMinutes().toInt()
+    private fun getEffectiveWorkedSeconds(currentTime: LocalTime, settings: UserSettings): Double {
+        val secondsSinceStart = Duration.between(settings.workStartTime, currentTime).seconds.toDouble()
         val lunchStart = settings.lunchStartTime
         val lunchEnd = settings.lunchEndTime
 
         val lunchDeduction = when {
-            currentTime.isBefore(lunchStart) -> 0
-            currentTime.isAfter(lunchEnd) -> settings.lunchBreakMinutes
-            else -> Duration.between(lunchStart, currentTime).toMinutes().toInt()
+            currentTime.isBefore(lunchStart) -> 0.0
+            currentTime.isAfter(lunchEnd) -> settings.lunchBreakMinutes * 60.0
+            else -> Duration.between(lunchStart, currentTime).seconds.toDouble()
         }
 
-        return (minutesSinceStart - lunchDeduction).coerceAtLeast(0)
+        return (secondsSinceStart - lunchDeduction).coerceAtLeast(0.0)
     }
 
     fun getWorkDaysInMonth(date: LocalDate, settings: UserSettings): Int {

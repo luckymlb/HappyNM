@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.sp
 import com.happynm.widget.data.datastore.SettingsDataStore
 import com.happynm.widget.data.model.UserSettings
 import com.happynm.widget.domain.SalaryCalculator
+import com.happynm.widget.service.WidgetRefreshService
+import com.happynm.widget.worker.WidgetAlarmReceiver
 import com.happynm.widget.widget.MainWidget
 import com.happynm.widget.widget.SalaryWidget
 import androidx.glance.appwidget.updateAll
@@ -34,6 +36,8 @@ import java.time.LocalDateTime
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WidgetRefreshService.start(this)
+        WidgetAlarmReceiver.schedule(this)
         enableEdgeToEdge()
         setContent {
             HappyNMTheme {

@@ -27,6 +27,7 @@ object SettingsKeys {
     val WEATHER_API_KEY = stringPreferencesKey("weather_api_key")
     val WORK_DAYS = stringPreferencesKey("work_days")
     val CACHED_WEATHER = stringPreferencesKey("cached_weather")
+    val REFRESH_TICK = longPreferencesKey("refresh_tick")
 }
 
 class SettingsDataStore(private val context: Context) {

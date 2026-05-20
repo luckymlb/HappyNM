@@ -34,7 +34,7 @@ class WidgetAlarmReceiver : BroadcastReceiver() {
 
         private fun scheduleNext(context: Context) {
             val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val triggerAt = System.currentTimeMillis() + 60_000L
+            val triggerAt = System.currentTimeMillis() + 10_000L
             try {
                 am.setExactAndAllowWhileIdle(
                     AlarmManager.RTC,
