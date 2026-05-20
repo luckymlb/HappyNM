@@ -1,0 +1,21 @@
+app/src/main/kotlin/com/happynm/widget/widget/MainWidget.kt
+  s_4401c936b4be41::t_f95cce53468a38 53-54,58-62,64,66-67,71,73,75-76,81,83,86,89,91-93,97,99-100,105-107,112,114,120-121,123,129,131-144,146-178,180,182-183,189,192
+app/src/main/kotlin/com/happynm/widget/HappyNMApp.kt
+  s_4401c936b4be41::t_18b3387824bcb6 4,6-7,10,15-16,21-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "4599c99a4efd4080f9c0b4c207fca30566f50e45",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
