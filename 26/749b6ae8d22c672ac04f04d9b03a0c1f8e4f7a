@@ -1,0 +1,29 @@
+app/src/main/kotlin/com/happynm/widget/widget/MainWidget.kt
+  s_4401c936b4be41::t_51aecee3776002 34-35
+  s_4401c936b4be41::t_5d46074eaad2a2 17
+app/src/main/kotlin/com/happynm/widget/widget/SalaryWidget.kt
+  s_4401c936b4be41::t_260d251909ac38 17
+  s_4401c936b4be41::t_c22177942c9e40 29-30
+app/src/main/kotlin/com/happynm/widget/MainActivity.kt
+  s_4401c936b4be41::t_cb33d6e032bf17 31
+  s_4401c936b4be41::t_1a5a16aa136ed8 88-95
+  s_4401c936b4be41::t_afb78874478221 96-97
+app/src/main/kotlin/com/happynm/widget/widget/SettingsGlanceStateDefinition.kt
+  s_4401c936b4be41::t_a13a51d3f446b9 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "26749b6ae8d22c672ac04f04d9b03a0c1f8e4f7a",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
