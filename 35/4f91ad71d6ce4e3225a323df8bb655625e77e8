@@ -1,0 +1,28 @@
+app/src/main/kotlin/com/happynm/widget/widget/components/WorkStatusModule.kt
+  s_4401c936b4be41::t_8390f7acc9155f 33-34,44,50,52-54,58-59,63-64,71,73
+app/src/main/kotlin/com/happynm/widget/widget/components/ScheduleModule.kt
+  s_4401c936b4be41::t_94964af7b7182f 24-25,27-28,34,42
+app/src/main/kotlin/com/happynm/widget/widget/components/FocusModule.kt
+  s_4401c936b4be41::t_f41510d8f2dc56 24-25,27-28,32,38
+app/src/main/kotlin/com/happynm/widget/widget/MainWidget.kt
+  s_4401c936b4be41::t_edcd0461cbe3b8 82,125,153-154,203-204
+  s_4401c936b4be41::t_7963b62e3dd96a 7,17-19,26-27,29-31,48-51,53,61-65,67-81,85,87-124,126-152,157,159-161,164-202,206-231,233-239,241
+app/src/main/kotlin/com/happynm/widget/widget/components/SalaryModule.kt
+  s_4401c936b4be41::t_f6653745496b23 21,40,71-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "354f91ad71d6ce4e3225a323df8bb655625e77e8",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
