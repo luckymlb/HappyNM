@@ -2,6 +2,7 @@ package com.happynm.widget
 
 import android.app.Application
 import androidx.work.*
+import com.happynm.widget.worker.WidgetAlarmReceiver
 import com.happynm.widget.worker.WidgetUpdateWorker
 import java.util.concurrent.TimeUnit
 
@@ -10,6 +11,7 @@ class HappyNMApp : Application() {
     override fun onCreate() {
         super.onCreate()
         scheduleWidgetUpdate()
+        WidgetAlarmReceiver.schedule(this)
     }
 
     private fun scheduleWidgetUpdate() {

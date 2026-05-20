@@ -54,6 +54,20 @@
                 android:resource="@xml/widget_info_salary" />
         </receiver>
 
+        <!-- Widget Alarm Receiver for per-minute refresh -->
+        <receiver
+            android:name=".worker.WidgetAlarmReceiver"
+            android:exported="false" />
+
+        <!-- Boot receiver to restart alarm -->
+        <receiver
+            android:name=".worker.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

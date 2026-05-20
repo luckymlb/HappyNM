@@ -23,6 +23,7 @@ import com.happynm.widget.data.datastore.SettingsKeys
 import com.happynm.widget.data.model.UserSettings
 import com.happynm.widget.domain.LunarCalendar
 import com.happynm.widget.domain.SalaryCalculator
+import com.happynm.widget.worker.WidgetAlarmReceiver
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -48,12 +49,12 @@ private fun MainWidgetContent() {
     Column(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(ColorProvider(Color(0xFFF6FBF8)))
+            .background(ColorProvider(Color.White))
             .cornerRadius(22.dp)
-            .padding(16.dp)
+            .padding(horizontal = 18.dp, vertical = 14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
-        // 顶部：时间 + 日薪参考
+        // 顶部：时间 + 日薪
         Row(
             modifier = GlanceModifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -61,8 +62,8 @@ private fun MainWidgetContent() {
             Text(
                 text = now.format(DateTimeFormatter.ofPattern("HH:mm", Locale.US)),
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF1A1A2E)),
-                    fontSize = 14.sp,
+                    color = ColorProvider(Color(0xFF2D3436)),
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Medium
                 )
             )
@@ -70,48 +71,56 @@ private fun MainWidgetContent() {
             Text(
                 text = "${today.format(DateTimeFormatter.ofPattern("M/d EEE", Locale.CHINESE))} · ${LunarCalendar.getLunarDateString(today)}",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF9CA3AF)),
+                    color = ColorProvider(Color(0xFFB2BEC3)),
                     fontSize = 10.sp
                 )
             )
             Spacer(modifier = GlanceModifier.defaultWeight())
             if (status.isWorkDay && status.dailySalary > 0) {
-                Text(
-                    text = "日薪 ¥${"%.0f".format(status.dailySalary)}",
-                    style = TextStyle(
-                        color = ColorProvider(Color(0xFF9CA3AF)),
-                        fontSize = 10.sp
+                Box(
+                    modifier = GlanceModifier
+                        .background(ColorProvider(Color(0xFFF0FFF4)))
+                        .cornerRadius(6.dp)
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                ) {
+                    Text(
+                        text = "日薪 ¥${"%.0f".format(status.dailySalary)}",
+                        style = TextStyle(
+                            color = ColorProvider(Color(0xFF00B894)),
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Medium
+                        )
                     )
-                )
+                }
             }
         }
 
         Spacer(modifier = GlanceModifier.height(6.dp))
 
         if (status.isWorkDay) {
-            // 核心：今日已赚
+            // 标签
             Text(
                 text = "今日已赚",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF6B7280)),
+                    color = ColorProvider(Color(0xFF636E72)),
                     fontSize = 11.sp
                 )
             )
-            Spacer(modifier = GlanceModifier.height(2.dp))
             // 大金额
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     text = "¥",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF2ECC71)),
-                        fontSize = 18.sp,
+                        color = ColorProvider(Color(0xFF00B894)),
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
                     )
                 )
+                Spacer(modifier = GlanceModifier.width(2.dp))
                 Text(
                     text = "%.2f".format(status.earned),
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        color = ColorProvider(Color(0xFF2D3436)),
                         fontSize = 36.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -120,74 +129,85 @@ private fun MainWidgetContent() {
 
             Spacer(modifier = GlanceModifier.defaultWeight())
 
-            // 底部：状态 + 进度条
+            // 底部：进度信息
             Row(
                 modifier = GlanceModifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Box(
+                    modifier = GlanceModifier
+                        .background(ColorProvider(
+                            if (status.isWorking) Color(0xFFE8F8F5) else Color(0xFFF5F6FA)
+                        ))
+                        .cornerRadius(4.dp)
+                        .padding(horizontal = 5.dp, vertical = 1.dp)
+                ) {
+                    Text(
+                        text = "● ${status.statusText}",
+                        style = TextStyle(
+                            color = ColorProvider(
+                                if (status.isWorking) Color(0xFF00B894) else Color(0xFFB2BEC3)
+                            ),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                }
+                Spacer(modifier = GlanceModifier.defaultWeight())
                 Text(
-                    text = "● ${status.statusText}",
+                    text = "${settings.workStartHour}:${"%02d".format(settings.workStartMinute)}–${settings.workEndHour}:${"%02d".format(settings.workEndMinute)}",
                     style = TextStyle(
-                        color = ColorProvider(if (status.isWorking) Color(0xFF2ECC71) else Color(0xFF9CA3AF)),
-                        fontSize = 10.sp
+                        color = ColorProvider(Color(0xFFDFE6E9)),
+                        fontSize = 9.sp
                     )
                 )
-                Spacer(modifier = GlanceModifier.defaultWeight())
+                Spacer(modifier = GlanceModifier.width(8.dp))
                 Text(
                     text = "${progressPercent}%",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        color = ColorProvider(Color(0xFF00B894)),
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
-                Spacer(modifier = GlanceModifier.width(6.dp))
-                Text(
-                    text = "${settings.workStartHour}:${"%02d".format(settings.workStartMinute)}–${settings.workEndHour}:${"%02d".format(settings.workEndMinute)}",
-                    style = TextStyle(
-                        color = ColorProvider(Color(0xFFB0B8C4)),
-                        fontSize = 9.sp
-                    )
-                )
             }
-            Spacer(modifier = GlanceModifier.height(4.dp))
+            Spacer(modifier = GlanceModifier.height(5.dp))
             // 进度条
             Box(
                 modifier = GlanceModifier
                     .fillMaxWidth()
-                    .height(6.dp)
+                    .height(5.dp)
                     .cornerRadius(3.dp)
-                    .background(ColorProvider(Color(0xFFD1FAE5)))
+                    .background(ColorProvider(Color(0xFFE8F8F5)))
             ) {
                 Row(modifier = GlanceModifier.fillMaxWidth()) {
                     if (progressPercent > 0) {
                         Box(
                             modifier = GlanceModifier
-                                .height(6.dp)
-                                .width((progressPercent * 2.4).toInt().dp.coerceAtMost(240.dp))
+                                .height(5.dp)
+                                .width((progressPercent * 2.6).toInt().dp.coerceAtMost(260.dp))
                                 .cornerRadius(3.dp)
-                                .background(ColorProvider(Color(0xFF2ECC71)))
+                                .background(ColorProvider(Color(0xFF00B894)))
                         ) {}
                     }
                     Spacer(modifier = GlanceModifier.defaultWeight())
                 }
             }
         } else {
-            // 非工作日
-            Spacer(modifier = GlanceModifier.height(8.dp))
+            Spacer(modifier = GlanceModifier.height(6.dp))
             Text(
                 text = "今天不用上班",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF6B7280)),
+                    color = ColorProvider(Color(0xFFB2BEC3)),
                     fontSize = 11.sp
                 )
             )
-            Spacer(modifier = GlanceModifier.height(4.dp))
+            Spacer(modifier = GlanceModifier.height(2.dp))
             Text(
                 text = "☀️ 好好休息",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF1B9E5A)),
-                    fontSize = 28.sp,
+                    color = ColorProvider(Color(0xFF2D3436)),
+                    fontSize = 26.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
@@ -195,7 +215,7 @@ private fun MainWidgetContent() {
             Text(
                 text = "下个工作日继续搞钱 💰",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF9CA3AF)),
+                    color = ColorProvider(Color(0xFFB2BEC3)),
                     fontSize = 10.sp
                 )
             )
@@ -224,4 +244,14 @@ private fun prefsToSettings(prefs: Preferences): UserSettings {
 
 class MainWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget = MainWidget()
+
+    override fun onEnabled(context: Context) {
+        super.onEnabled(context)
+        WidgetAlarmReceiver.schedule(context)
+    }
+
+    override fun onDisabled(context: Context) {
+        super.onDisabled(context)
+        WidgetAlarmReceiver.cancel(context)
+    }
 }
