@@ -1,0 +1,49 @@
+app/src/main/kotlin/com/happynm/widget/widget/components/CountdownModule.kt
+  s_4401c936b4be41::t_ac63ffd46a3026 24,26-27,31,33,39,45,47-48
+app/src/main/kotlin/com/happynm/widget/widget/MainWidget.kt
+  s_4401c936b4be41::t_535ab37f8758a7 39-40,43-44,48-55,58-63,67,69-77,79-82,84-92
+app/src/main/res/values/themes.xml
+  s_4401c936b4be41::t_f493af21f429de 7
+app/src/main/kotlin/com/happynm/widget/widget/components/ScheduleModule.kt
+  s_4401c936b4be41::t_b9b3ea1769740f 23,25-27,32-33,41-42
+app/src/main/kotlin/com/happynm/widget/widget/components/WeatherModule.kt
+  s_4401c936b4be41::t_454f1b81709a78 21,23-24,27-28,30,34-35
+app/src/main/kotlin/com/happynm/widget/widget/components/SalaryModule.kt
+  s_4401c936b4be41::t_cff60a843c6d74 24,26,31-32,35,41-42,49-50,57,59-60
+app/src/main/kotlin/com/happynm/widget/MainActivity.kt
+  s_4401c936b4be41::t_610678338fa3ca 208,212,217,225-226,230-231,234
+  s_4401c936b4be41::t_0d19f8af707231 77-78
+  s_4401c936b4be41::t_89d4dc50bff70f 88-89,92
+  s_4401c936b4be41::t_4219b3a61ab53a 244,248
+  s_4401c936b4be41::t_b571752d6ba156 49-55
+  s_4401c936b4be41::t_94417f6c516318 269-275,293-297,301,311-315
+  s_4401c936b4be41::t_2b7f0646fb924d 193
+app/src/main/kotlin/com/happynm/widget/widget/components/FocusModule.kt
+  s_4401c936b4be41::t_cd50af8ed4e5bc 13,23,25-27,30,35,37-39
+app/src/main/kotlin/com/happynm/widget/widget/components/ClockModule.kt
+  s_4401c936b4be41::t_398c7a76904b6f 21,28-33,35,39-40
+app/src/main/res/xml/widget_info_main.xml
+  s_4401c936b4be41::t_32a677c7f3c8df 3-4,6
+app/src/main/kotlin/com/happynm/widget/widget/components/WorkStatusModule.kt
+  s_4401c936b4be41::t_6a5cc3f165419c 26,31-33,43,51-52,55-62,64
+app/src/main/kotlin/com/happynm/widget/widget/SalaryWidget.kt
+  s_4401c936b4be41::t_219f81fe331c0a 55-56,65-66,69,74-75,81,83,93,100
+app/src/main/res/values/colors.xml
+  s_4401c936b4be41::t_d44c966c281d02 3-10,12-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.10",
+  "base_commit_sha": "8a5b3b6c669427ca555b8a459c6084abfe3f5c32",
+  "prompts": {},
+  "sessions": {
+    "s_4401c936b4be41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef6ccee1-79e2-47c4-afe2-05d143e300a8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "malibo <malibo@onero.com>"
+    }
+  }
+}
