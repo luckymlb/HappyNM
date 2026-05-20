@@ -52,8 +52,8 @@ private fun SalaryWidgetContent() {
     Row(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(ColorProvider(Color(0xFF1A3A2A)))
-            .cornerRadius(16.dp)
+            .background(ColorProvider(Color.White))
+            .cornerRadius(18.dp)
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>()),
         verticalAlignment = Alignment.CenterVertically
@@ -62,25 +62,25 @@ private fun SalaryWidgetContent() {
             Text(
                 text = "今日已赚",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF34C759)),
-                    fontSize = 12.sp
+                    color = ColorProvider(Color(0xFF1B9E5A)),
+                    fontSize = 11.sp
                 )
             )
-            Spacer(modifier = GlanceModifier.height(4.dp))
+            Spacer(modifier = GlanceModifier.height(2.dp))
             if (status.isWorkDay) {
                 Text(
                     text = "¥${"%.2f".format(status.earned)}",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF34C759)),
-                        fontSize = 28.sp,
+                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        fontSize = 26.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
             } else {
                 Text(
-                    text = "今日休息 😴",
+                    text = "休息日 ☀️",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF8E8E93)),
+                        color = ColorProvider(Color(0xFF6B7280)),
                         fontSize = 16.sp
                     )
                 )
@@ -90,14 +90,14 @@ private fun SalaryWidgetContent() {
             Text(
                 text = status.statusText,
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF8E8E93)),
+                    color = ColorProvider(Color(0xFF9CA3AF)),
                     fontSize = 11.sp
                 )
             )
             Text(
                 text = "${(status.progress * 100).toInt()}%",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF0A84FF)),
+                    color = ColorProvider(Color(0xFF4A90D9)),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )

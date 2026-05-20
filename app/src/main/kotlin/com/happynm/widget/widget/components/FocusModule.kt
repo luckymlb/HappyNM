@@ -10,6 +10,7 @@ import androidx.glance.action.clickable
 import androidx.glance.background
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.layout.*
+import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
@@ -19,28 +20,23 @@ import com.happynm.widget.MainActivity
 fun FocusModule(modifier: GlanceModifier = GlanceModifier) {
     Column(
         modifier = modifier
-            .background(ColorProvider(Color(0xFF2A2040)))
+            .background(ColorProvider(Color(0xFFF5F0FF)))
             .padding(10.dp)
-            .cornerRadius(12.dp)
-            .clickable(actionStartActivity<MainActivity>())
+            .cornerRadius(14.dp)
+            .clickable(actionStartActivity<MainActivity>()),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "🍅",
+            text = "🎯",
             style = TextStyle(fontSize = 16.sp)
         )
         Spacer(modifier = GlanceModifier.height(2.dp))
         Text(
-            text = "专注时刻",
+            text = "专注",
             style = TextStyle(
-                color = ColorProvider(Color(0xFF8B5CF6)),
-                fontSize = 13.sp
-            )
-        )
-        Text(
-            text = "点击开始",
-            style = TextStyle(
-                color = ColorProvider(Color(0xFF8E8E93)),
-                fontSize = 11.sp
+                color = ColorProvider(Color(0xFF9B59B6)),
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Medium
             )
         )
     }

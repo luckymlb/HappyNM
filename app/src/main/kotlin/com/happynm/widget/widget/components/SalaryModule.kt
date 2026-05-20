@@ -21,43 +21,43 @@ fun SalaryModule(settings: UserSettings, modifier: GlanceModifier = GlanceModifi
 
     Column(
         modifier = modifier
-            .background(ColorProvider(Color(0xFF1A3A2A)))
+            .background(ColorProvider(Color(0xFFEDF8F0)))
             .padding(12.dp)
-            .cornerRadius(12.dp)
+            .cornerRadius(14.dp)
     ) {
         Text(
             text = "今日已赚",
             style = TextStyle(
-                color = ColorProvider(Color(0xFF34C759)),
-                fontSize = 13.sp
+                color = ColorProvider(Color(0xFF1B9E5A)),
+                fontSize = 11.sp
             )
         )
-        Spacer(modifier = GlanceModifier.height(4.dp))
+        Spacer(modifier = GlanceModifier.height(2.dp))
         if (status.isWorkDay) {
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     text = "¥",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF34C759)),
-                        fontSize = 18.sp,
+                        color = ColorProvider(Color(0xFF2ECC71)),
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
                     )
                 )
                 Text(
                     text = "%.2f".format(status.earned),
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF34C759)),
-                        fontSize = 32.sp,
+                        color = ColorProvider(Color(0xFF1B9E5A)),
+                        fontSize = 26.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
             }
         } else {
             Text(
-                text = "今日休息",
+                text = "休息日",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF8E8E93)),
-                    fontSize = 20.sp
+                    color = ColorProvider(Color(0xFF6B7280)),
+                    fontSize = 18.sp
                 )
             )
         }

@@ -36,54 +36,60 @@ private fun MainWidgetContent() {
     val settings = prefsToSettings(prefs)
     val weather = prefsToWeather(prefs)
 
-    Column(
+    // 4x2 横向长方形布局：左侧主信息 + 右侧小模块
+    Row(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(ColorProvider(Color(0xFF1C1C1E)))
-            .cornerRadius(20.dp)
+            .background(ColorProvider(Color.White))
+            .cornerRadius(22.dp)
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
-        // 时钟区域
-        ClockModule(modifier = GlanceModifier.fillMaxWidth())
-
-        Spacer(modifier = GlanceModifier.height(10.dp))
-
-        // 薪资 + 天气/倒计时 行
-        Row(modifier = GlanceModifier.fillMaxWidth()) {
+        // 左侧：时钟 + 薪资 + 工作状态
+        Column(
+            modifier = GlanceModifier
+                .defaultWeight()
+                .fillMaxHeight()
+        ) {
+            ClockModule(modifier = GlanceModifier.fillMaxWidth())
+            Spacer(modifier = GlanceModifier.height(8.dp))
             SalaryModule(
                 settings = settings,
-                modifier = GlanceModifier.defaultWeight()
+                modifier = GlanceModifier.fillMaxWidth()
             )
-            Spacer(modifier = GlanceModifier.width(8.dp))
-            Column(modifier = GlanceModifier.width(72.dp)) {
-                WeatherModule(
-                    weather = weather,
-                    modifier = GlanceModifier.fillMaxWidth()
-                )
-                Spacer(modifier = GlanceModifier.height(6.dp))
-                CountdownModule(
-                    settings = settings,
-                    modifier = GlanceModifier.fillMaxWidth()
-                )
-            }
-        }
-
-        Spacer(modifier = GlanceModifier.height(10.dp))
-
-        // 专注 + 工作状态 + 日程 行
-        Row(modifier = GlanceModifier.fillMaxWidth()) {
-            FocusModule(modifier = GlanceModifier.width(90.dp))
-            Spacer(modifier = GlanceModifier.width(8.dp))
+            Spacer(modifier = GlanceModifier.defaultWeight())
             WorkStatusModule(
                 settings = settings,
-                modifier = GlanceModifier.defaultWeight()
+                modifier = GlanceModifier.fillMaxWidth()
             )
-            Spacer(modifier = GlanceModifier.width(8.dp))
-            ScheduleModule(
-                eventCount = 2,
-                modifier = GlanceModifier.width(56.dp)
+        }
+
+        Spacer(modifier = GlanceModifier.width(10.dp))
+
+        // 右侧：天气 / 倒计时 / 专注 / 日程 四宫格
+        Column(
+            modifier = GlanceModifier
+                .width(80.dp)
+                .fillMaxHeight()
+        ) {
+            WeatherModule(
+                weather = weather,
+                modifier = GlanceModifier.fillMaxWidth()
             )
+            Spacer(modifier = GlanceModifier.height(6.dp))
+            CountdownModule(
+                settings = settings,
+                modifier = GlanceModifier.fillMaxWidth()
+            )
+            Spacer(modifier = GlanceModifier.height(6.dp))
+            Row(modifier = GlanceModifier.fillMaxWidth()) {
+                FocusModule(modifier = GlanceModifier.defaultWeight())
+                Spacer(modifier = GlanceModifier.width(4.dp))
+                ScheduleModule(
+                    eventCount = 2,
+                    modifier = GlanceModifier.defaultWeight()
+                )
+            }
         }
     }
 }

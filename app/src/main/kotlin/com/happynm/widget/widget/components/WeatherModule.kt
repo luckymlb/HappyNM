@@ -18,20 +18,21 @@ import com.happynm.widget.data.model.WeatherInfo
 fun WeatherModule(weather: WeatherInfo?, modifier: GlanceModifier = GlanceModifier) {
     Column(
         modifier = modifier
-            .background(ColorProvider(Color(0xFF3A3A2A)))
+            .background(ColorProvider(Color(0xFFEFF6FF)))
             .padding(10.dp)
-            .cornerRadius(12.dp)
+            .cornerRadius(14.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "☁️",
-            style = TextStyle(fontSize = 20.sp)
+            text = "☀️",
+            style = TextStyle(fontSize = 18.sp)
         )
-        Spacer(modifier = GlanceModifier.height(4.dp))
+        Spacer(modifier = GlanceModifier.height(2.dp))
         Text(
             text = weather?.tempRangeText ?: "--°C",
             style = TextStyle(
-                color = ColorProvider(Color(0xFFFBBF24)),
-                fontSize = 13.sp,
+                color = ColorProvider(Color(0xFF4A90D9)),
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
             )
         )

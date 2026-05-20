@@ -21,30 +21,31 @@ fun CountdownModule(settings: UserSettings, modifier: GlanceModifier = GlanceMod
 
     Column(
         modifier = modifier
-            .background(ColorProvider(Color(0xFF3A2A2A)))
+            .background(ColorProvider(Color(0xFFFFF0F5)))
             .padding(10.dp)
-            .cornerRadius(12.dp)
+            .cornerRadius(14.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "📅",
-            style = TextStyle(fontSize = 20.sp)
+            style = TextStyle(fontSize = 18.sp)
         )
-        Spacer(modifier = GlanceModifier.height(4.dp))
+        Spacer(modifier = GlanceModifier.height(2.dp))
         if (days != null && days >= 0) {
             Text(
                 text = "${days}天",
                 style = TextStyle(
                     color = ColorProvider(Color(0xFFFF6B8A)),
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
         } else {
             Text(
-                text = "--天",
+                text = "--",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF8E8E93)),
-                    fontSize = 16.sp
+                    color = ColorProvider(Color(0xFF9CA3AF)),
+                    fontSize = 14.sp
                 )
             )
         }

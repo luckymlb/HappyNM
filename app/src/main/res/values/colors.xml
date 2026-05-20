@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="widget_background">#FF1C1C1E</color>
-    <color name="widget_surface">#FF2C2C2E</color>
-    <color name="widget_surface_elevated">#FF3A3A3C</color>
-    <color name="widget_primary">#FF34C759</color>
-    <color name="widget_secondary">#FF30D158</color>
-    <color name="widget_accent_purple">#FF8B5CF6</color>
-    <color name="widget_accent_gold">#FFFBBF24</color>
-    <color name="widget_text_primary">#FFFFFFFF</color>
-    <color name="widget_text_secondary">#FF8E8E93</color>
-    <color name="widget_text_tertiary">#FF636366</color>
-    <color name="widget_salary_green">#FF34C759</color>
-    <color name="widget_progress_track">#FF48484A</color>
-    <color name="widget_progress_indicator">#FF0A84FF</color>
+    <!-- 清新浅色主题 -->
+    <color name="widget_background">#FFFFFFFF</color>
+    <color name="widget_surface">#FFF5F7FA</color>
+    <color name="widget_surface_green">#FFEDF8F0</color>
+    <color name="widget_surface_blue">#FFEFF6FF</color>
+    <color name="widget_surface_purple">#FFF5F0FF</color>
+    <color name="widget_surface_orange">#FFFFF5EB</color>
+    <color name="widget_surface_pink">#FFFFF0F5</color>
 
-    <color name="app_background">#FF000000</color>
-    <color name="app_surface">#FF1C1C1E</color>
+    <color name="widget_primary">#FF2ECC71</color>
+    <color name="widget_primary_dark">#FF1B9E5A</color>
+    <color name="widget_accent_blue">#FF4A90D9</color>
+    <color name="widget_accent_purple">#FF9B59B6</color>
+    <color name="widget_accent_orange">#FFF39C12</color>
+    <color name="widget_accent_pink">#FFFF6B8A</color>
+
+    <color name="widget_text_primary">#FF1A1A2E</color>
+    <color name="widget_text_secondary">#FF6B7280</color>
+    <color name="widget_text_tertiary">#FF9CA3AF</color>
+
+    <color name="widget_progress_track">#FFE5E7EB</color>
+    <color name="widget_progress_indicator">#FF4A90D9</color>
+
+    <color name="widget_divider">#FFEEEEEE</color>
+
+    <!-- App 主题色 -->
+    <color name="app_background">#FFFAFBFC</color>
+    <color name="app_surface">#FFFFFFFF</color>
+    <color name="app_primary">#FF2ECC71</color>
 </resources>

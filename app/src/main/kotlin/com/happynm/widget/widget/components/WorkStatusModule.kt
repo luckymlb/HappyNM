@@ -23,14 +23,14 @@ fun WorkStatusModule(settings: UserSettings, modifier: GlanceModifier = GlanceMo
         settings.workEndHour, settings.workEndMinute
     )
 
-    val statusColor = if (status.isWorking) Color(0xFF34C759) else Color(0xFF8E8E93)
+    val statusColor = if (status.isWorking) Color(0xFF2ECC71) else Color(0xFF9CA3AF)
 
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(ColorProvider(Color(0xFF2C2C2E)))
-            .padding(12.dp)
-            .cornerRadius(12.dp)
+            .background(ColorProvider(Color(0xFFF5F7FA)))
+            .padding(10.dp)
+            .cornerRadius(14.dp)
     ) {
         Row(
             modifier = GlanceModifier.fillMaxWidth(),
@@ -40,7 +40,7 @@ fun WorkStatusModule(settings: UserSettings, modifier: GlanceModifier = GlanceMo
                 text = "● ${status.statusText}",
                 style = TextStyle(
                     color = ColorProvider(statusColor),
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Medium
                 )
             )
@@ -48,30 +48,19 @@ fun WorkStatusModule(settings: UserSettings, modifier: GlanceModifier = GlanceMo
             Text(
                 text = timeRange,
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFF8E8E93)),
-                    fontSize = 12.sp
+                    color = ColorProvider(Color(0xFF9CA3AF)),
+                    fontSize = 11.sp
+                )
+            )
+            Spacer(modifier = GlanceModifier.width(8.dp))
+            Text(
+                text = "${(status.progress * 100).toInt()}%",
+                style = TextStyle(
+                    color = ColorProvider(Color(0xFF4A90D9)),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
                 )
             )
         }
-        Spacer(modifier = GlanceModifier.height(6.dp))
-        Row(modifier = GlanceModifier.fillMaxWidth()) {
-            // Progress track
-            Box(
-                modifier = GlanceModifier
-                    .height(6.dp)
-                    .defaultWeight()
-                    .background(ColorProvider(Color(0xFF48484A)))
-                    .cornerRadius(3.dp)
-            ) {}
-        }
-        // Overlay progress indicator (approximate with text percentage)
-        Spacer(modifier = GlanceModifier.height(4.dp))
-        Text(
-            text = "${(status.progress * 100).toInt()}% 完成",
-            style = TextStyle(
-                color = ColorProvider(Color(0xFF0A84FF)),
-                fontSize = 11.sp
-            )
-        )
     }
 }

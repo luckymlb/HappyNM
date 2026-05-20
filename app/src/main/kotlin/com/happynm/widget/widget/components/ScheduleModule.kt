@@ -20,16 +20,17 @@ import com.happynm.widget.MainActivity
 fun ScheduleModule(eventCount: Int = 0, modifier: GlanceModifier = GlanceModifier) {
     Column(
         modifier = modifier
-            .background(ColorProvider(Color(0xFF2C2C2E)))
+            .background(ColorProvider(Color(0xFFFFF5EB)))
             .padding(10.dp)
-            .cornerRadius(12.dp)
-            .clickable(actionStartActivity<MainActivity>())
+            .cornerRadius(14.dp)
+            .clickable(actionStartActivity<MainActivity>()),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "$eventCount",
             style = TextStyle(
-                color = ColorProvider(Color(0xFF0A84FF)),
-                fontSize = 20.sp,
+                color = ColorProvider(Color(0xFFF39C12)),
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
         )
@@ -37,8 +38,8 @@ fun ScheduleModule(eventCount: Int = 0, modifier: GlanceModifier = GlanceModifie
         Text(
             text = "日程",
             style = TextStyle(
-                color = ColorProvider(Color(0xFF8E8E93)),
-                fontSize = 12.sp
+                color = ColorProvider(Color(0xFF9CA3AF)),
+                fontSize = 11.sp
             )
         )
     }

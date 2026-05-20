@@ -46,13 +46,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun HappyNMTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = darkColorScheme(
-            primary = Color(0xFF34C759),
-            secondary = Color(0xFF0A84FF),
-            surface = Color(0xFF1C1C1E),
-            background = Color(0xFF000000),
-            onSurface = Color.White,
-            onBackground = Color.White
+        colorScheme = lightColorScheme(
+            primary = Color(0xFF2ECC71),
+            secondary = Color(0xFF4A90D9),
+            surface = Color.White,
+            background = Color(0xFFFAFBFC),
+            onSurface = Color(0xFF1A1A2E),
+            onBackground = Color(0xFF1A1A2E)
         ),
         content = content
     )
@@ -74,8 +74,8 @@ private fun SettingsScreen() {
     }
 
     if (isLoading) {
-        Box(modifier = Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator(color = Color(0xFF34C759))
+        Box(modifier = Modifier.fillMaxSize().background(Color(0xFFFAFBFC)), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator(color = Color(0xFF2ECC71))
         }
         return
     }
@@ -85,11 +85,11 @@ private fun SettingsScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("工作日薪", color = Color.White) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Black)
+                title = { Text("工作日薪", color = Color(0xFF1A1A2E)) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFFFAFBFC))
             )
         },
-        containerColor = Color.Black
+        containerColor = Color(0xFFFAFBFC)
     ) { padding ->
         Column(
             modifier = Modifier
@@ -190,7 +190,7 @@ private fun SettingsScreen() {
                     }
                 },
                 modifier = Modifier.fillMaxWidth().height(52.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF34C759)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2ECC71)),
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text("保存并更新小组件", fontSize = 16.sp, fontWeight = FontWeight.Medium)
@@ -205,16 +205,16 @@ private fun SettingsScreen() {
 private fun EarningsPreviewCard(status: SalaryCalculator.SalaryStatus) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF1A3A2A)),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFEDF8F0)),
         shape = RoundedCornerShape(16.dp)
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
-            Text("今日已赚", color = Color(0xFF34C759), fontSize = 14.sp)
+            Text("今日已赚", color = Color(0xFF1B9E5A), fontSize = 14.sp)
             Spacer(modifier = Modifier.height(8.dp))
             if (status.isWorkDay) {
                 Text(
                     text = "¥${"%.2f".format(status.earned)}",
-                    color = Color(0xFF34C759),
+                    color = Color(0xFF1B9E5A),
                     fontSize = 42.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -222,16 +222,16 @@ private fun EarningsPreviewCard(status: SalaryCalculator.SalaryStatus) {
                 LinearProgressIndicator(
                     progress = { status.progress },
                     modifier = Modifier.fillMaxWidth().height(6.dp),
-                    color = Color(0xFF0A84FF),
-                    trackColor = Color(0xFF48484A)
+                    color = Color(0xFF4A90D9),
+                    trackColor = Color(0xFFE5E7EB)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(status.statusText, color = Color(0xFF8E8E93), fontSize = 12.sp)
-                    Text("${(status.progress * 100).toInt()}%", color = Color(0xFF0A84FF), fontSize = 12.sp)
+                    Text(status.statusText, color = Color(0xFF6B7280), fontSize = 12.sp)
+                    Text("${(status.progress * 100).toInt()}%", color = Color(0xFF4A90D9), fontSize = 12.sp)
                 }
             } else {
-                Text("今日休息 😴", color = Color(0xFF8E8E93), fontSize = 24.sp)
+                Text("今日休息 ☀️", color = Color(0xFF6B7280), fontSize = 24.sp)
             }
         }
     }
@@ -241,11 +241,11 @@ private fun EarningsPreviewCard(status: SalaryCalculator.SalaryStatus) {
 private fun SettingsSection(title: String, content: @Composable ColumnScope.() -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF1C1C1E)),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = RoundedCornerShape(12.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(title, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+            Text(title, color = Color(0xFF1A1A2E), fontSize = 16.sp, fontWeight = FontWeight.Medium)
             Spacer(modifier = Modifier.height(12.dp))
             content()
         }
@@ -266,13 +266,13 @@ private fun SettingsTextField(
         modifier = Modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedTextColor = Color.White,
-            unfocusedTextColor = Color.White,
-            focusedBorderColor = Color(0xFF34C759),
-            unfocusedBorderColor = Color(0xFF48484A),
-            focusedLabelColor = Color(0xFF34C759),
-            unfocusedLabelColor = Color(0xFF8E8E93),
-            cursorColor = Color(0xFF34C759)
+            focusedTextColor = Color(0xFF1A1A2E),
+            unfocusedTextColor = Color(0xFF1A1A2E),
+            focusedBorderColor = Color(0xFF2ECC71),
+            unfocusedBorderColor = Color(0xFFE5E7EB),
+            focusedLabelColor = Color(0xFF2ECC71),
+            unfocusedLabelColor = Color(0xFF9CA3AF),
+            cursorColor = Color(0xFF2ECC71)
         ),
         singleLine = true
     )
@@ -290,15 +290,15 @@ private fun TimeInput(hour: Int, minute: Int, onChanged: (Int, Int) -> Unit) {
             modifier = Modifier.width(60.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White,
-                focusedBorderColor = Color(0xFF34C759),
-                unfocusedBorderColor = Color(0xFF48484A),
-                cursorColor = Color(0xFF34C759)
+                focusedTextColor = Color(0xFF1A1A2E),
+                unfocusedTextColor = Color(0xFF1A1A2E),
+                focusedBorderColor = Color(0xFF2ECC71),
+                unfocusedBorderColor = Color(0xFFE5E7EB),
+                cursorColor = Color(0xFF2ECC71)
             ),
             singleLine = true
         )
-        Text(" : ", color = Color.White, fontSize = 18.sp)
+        Text(" : ", color = Color(0xFF1A1A2E), fontSize = 18.sp)
         OutlinedTextField(
             value = minute.toString().padStart(2, '0'),
             onValueChange = { v ->
@@ -308,11 +308,11 @@ private fun TimeInput(hour: Int, minute: Int, onChanged: (Int, Int) -> Unit) {
             modifier = Modifier.width(60.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White,
-                focusedBorderColor = Color(0xFF34C759),
-                unfocusedBorderColor = Color(0xFF48484A),
-                cursorColor = Color(0xFF34C759)
+                focusedTextColor = Color(0xFF1A1A2E),
+                unfocusedTextColor = Color(0xFF1A1A2E),
+                focusedBorderColor = Color(0xFF2ECC71),
+                unfocusedBorderColor = Color(0xFFE5E7EB),
+                cursorColor = Color(0xFF2ECC71)
             ),
             singleLine = true
         )
