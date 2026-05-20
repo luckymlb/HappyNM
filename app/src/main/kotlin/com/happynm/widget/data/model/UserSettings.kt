@@ -8,9 +8,9 @@ import java.time.LocalTime
 @Serializable
 data class UserSettings(
     val monthlySalary: Double = 10000.0,
-    val workStartHour: Int = 9,
+    val workStartHour: Int = 10,
     val workStartMinute: Int = 0,
-    val workEndHour: Int = 18,
+    val workEndHour: Int = 19,
     val workEndMinute: Int = 0,
     val lunchBreakMinutes: Int = 60,
     val lunchStartHour: Int = 12,

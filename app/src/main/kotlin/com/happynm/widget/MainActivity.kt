@@ -95,6 +95,7 @@ private fun SettingsScreen() {
     }
 
     val status = remember(settings, tick) { SalaryCalculator.calculate(settings) }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
         topBar = {
@@ -103,6 +104,7 @@ private fun SettingsScreen() {
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFFFAFBFC))
             )
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         containerColor = Color(0xFFFAFBFC)
     ) { padding ->
         Column(
@@ -178,6 +180,7 @@ private fun SettingsScreen() {
                         dataStore.saveSettings(settings)
                         MainWidget().updateAll(context)
                         SalaryWidget().updateAll(context)
+                        snackbarHostState.showSnackbar("保存成功，小组件已更新")
                     }
                 },
                 modifier = Modifier.fillMaxWidth().height(52.dp),
