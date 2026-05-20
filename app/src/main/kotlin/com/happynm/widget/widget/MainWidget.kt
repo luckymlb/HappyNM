@@ -50,11 +50,11 @@ private fun MainWidgetContent() {
             .fillMaxSize()
             .background(ColorProvider(Color.White))
             .cornerRadius(24.dp)
-            .padding(horizontal = 22.dp, vertical = 16.dp)
+            .padding(horizontal = 20.dp, vertical = 14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
         if (status.isWorkDay) {
-            // 顶部：标签 + 日薪
+            // 顶部行
             Row(
                 modifier = GlanceModifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -62,30 +62,38 @@ private fun MainWidgetContent() {
                 Text(
                     text = "今日已赚",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFF9CA3AF)),
-                        fontSize = 13.sp,
+                        color = ColorProvider(Color(0xFF6B7280)),
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Medium
                     )
                 )
                 Spacer(modifier = GlanceModifier.defaultWeight())
                 Text(
-                    text = "¥${"%.0f".format(status.dailySalary)}/天",
+                    text = "日薪 ¥${"%.0f".format(status.dailySalary)}",
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFFD1D5DB)),
-                        fontSize = 11.sp
+                        color = ColorProvider(Color(0xFF9CA3AF)),
+                        fontSize = 13.sp
                     )
                 )
             }
 
-            Spacer(modifier = GlanceModifier.height(8.dp))
+            Spacer(modifier = GlanceModifier.height(6.dp))
 
             // 核心金额
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
+                    text = "¥ ",
+                    style = TextStyle(
+                        color = ColorProvider(Color(0xFF10B981)),
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+                Text(
                     text = "%.2f".format(status.earned),
                     style = TextStyle(
                         color = ColorProvider(Color(0xFF111827)),
-                        fontSize = 42.sp,
+                        fontSize = 40.sp,
                         fontWeight = FontWeight.Bold
                     )
                 )
@@ -93,58 +101,76 @@ private fun MainWidgetContent() {
 
             Spacer(modifier = GlanceModifier.defaultWeight())
 
-            // 进度条
+            // 进度条区域
             Box(
                 modifier = GlanceModifier
                     .fillMaxWidth()
-                    .height(4.dp)
-                    .cornerRadius(2.dp)
+                    .height(20.dp)
+                    .cornerRadius(10.dp)
                     .background(ColorProvider(Color(0xFFF3F4F6)))
             ) {
-                Row(modifier = GlanceModifier.fillMaxWidth()) {
+                // 填充部分
+                Row(modifier = GlanceModifier.fillMaxSize()) {
                     if (progressPercent > 0) {
                         Box(
                             modifier = GlanceModifier
-                                .height(4.dp)
+                                .fillMaxHeight()
                                 .width((progressPercent * 2.8).toInt().dp.coerceAtMost(280.dp))
-                                .cornerRadius(2.dp)
+                                .cornerRadius(10.dp)
                                 .background(ColorProvider(Color(0xFF10B981)))
                         ) {}
                     }
                     Spacer(modifier = GlanceModifier.defaultWeight())
                 }
+                // 进度条上的文字
+                Row(
+                    modifier = GlanceModifier.fillMaxSize().padding(horizontal = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = status.statusText,
+                        style = TextStyle(
+                            color = ColorProvider(
+                                if (progressPercent > 50) Color.White else Color(0xFF6B7280)
+                            ),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                    Spacer(modifier = GlanceModifier.defaultWeight())
+                    Text(
+                        text = "${progressPercent}%",
+                        style = TextStyle(
+                            color = ColorProvider(
+                                if (progressPercent > 85) Color.White else Color(0xFF374151)
+                            ),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                }
             }
 
-            Spacer(modifier = GlanceModifier.height(8.dp))
+            Spacer(modifier = GlanceModifier.height(6.dp))
 
-            // 底部状态行
+            // 底部信息
             Row(
                 modifier = GlanceModifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = status.statusText,
-                    style = TextStyle(
-                        color = ColorProvider(
-                            if (status.isWorking) Color(0xFF10B981) else Color(0xFFD1D5DB)
-                        ),
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                )
-                Text(
-                    text = " · ${progressPercent}%",
+                    text = "${settings.workStartHour}:${"%02d".format(settings.workStartMinute)} – ${settings.workEndHour}:${"%02d".format(settings.workEndMinute)}",
                     style = TextStyle(
                         color = ColorProvider(Color(0xFF9CA3AF)),
-                        fontSize = 11.sp
+                        fontSize = 12.sp
                     )
                 )
                 Spacer(modifier = GlanceModifier.defaultWeight())
                 Text(
                     text = now.format(DateTimeFormatter.ofPattern("HH:mm", Locale.US)),
                     style = TextStyle(
-                        color = ColorProvider(Color(0xFFD1D5DB)),
-                        fontSize = 11.sp
+                        color = ColorProvider(Color(0xFF9CA3AF)),
+                        fontSize = 12.sp
                     )
                 )
             }
@@ -153,16 +179,16 @@ private fun MainWidgetContent() {
             Text(
                 text = "${today.format(DateTimeFormatter.ofPattern("M月d日 EEEE", Locale.CHINESE))}",
                 style = TextStyle(
-                    color = ColorProvider(Color(0xFFD1D5DB)),
-                    fontSize = 11.sp
+                    color = ColorProvider(Color(0xFF9CA3AF)),
+                    fontSize = 13.sp
                 )
             )
-            Spacer(modifier = GlanceModifier.height(12.dp))
+            Spacer(modifier = GlanceModifier.height(10.dp))
             Text(
                 text = "休息日",
                 style = TextStyle(
                     color = ColorProvider(Color(0xFF111827)),
-                    fontSize = 32.sp,
+                    fontSize = 34.sp,
                     fontWeight = FontWeight.Bold
                 )
             )
@@ -171,7 +197,7 @@ private fun MainWidgetContent() {
                 text = "好好休息，明天继续",
                 style = TextStyle(
                     color = ColorProvider(Color(0xFF9CA3AF)),
-                    fontSize = 11.sp
+                    fontSize = 13.sp
                 )
             )
         }
