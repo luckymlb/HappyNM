@@ -28,6 +28,7 @@ import com.happynm.widget.worker.WidgetAlarmReceiver
 import com.happynm.widget.widget.MainWidget
 import com.happynm.widget.widget.SalaryWidget
 import androidx.glance.appwidget.updateAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -84,7 +85,16 @@ private fun SettingsScreen() {
         return
     }
 
-    val status = SalaryCalculator.calculate(settings)
+    // 每秒刷新金额
+    var tick by remember { mutableStateOf(0L) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(1000L)
+            tick++
+        }
+    }
+
+    val status = remember(settings, tick) { SalaryCalculator.calculate(settings) }
 
     Scaffold(
         topBar = {

@@ -14,6 +14,7 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.*
+import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
@@ -24,6 +25,8 @@ import com.happynm.widget.data.model.UserSettings
 import com.happynm.widget.domain.SalaryCalculator
 
 class SalaryWidget : GlanceAppWidget() {
+
+    override val stateDefinition: GlanceStateDefinition<*> = SettingsGlanceStateDefinition
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
