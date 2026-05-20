@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_background">#FF1C1C1E</color>
+    <color name="widget_surface">#FF2C2C2E</color>
+    <color name="widget_surface_elevated">#FF3A3A3C</color>
+    <color name="widget_primary">#FF34C759</color>
+    <color name="widget_secondary">#FF30D158</color>
+    <color name="widget_accent_purple">#FF8B5CF6</color>
+    <color name="widget_accent_gold">#FFFBBF24</color>
+    <color name="widget_text_primary">#FFFFFFFF</color>
+    <color name="widget_text_secondary">#FF8E8E93</color>
+    <color name="widget_text_tertiary">#FF636366</color>
+    <color name="widget_salary_green">#FF34C759</color>
+    <color name="widget_progress_track">#FF48484A</color>
+    <color name="widget_progress_indicator">#FF0A84FF</color>
+
+    <color name="app_background">#FF000000</color>
+    <color name="app_surface">#FF1C1C1E</color>
+</resources>

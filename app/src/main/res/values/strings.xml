@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">工作日薪</string>
+    <string name="widget_name_main">工作日薪 (全功能)</string>
+    <string name="widget_name_salary">今日已赚</string>
+    <string name="widget_description_main">显示今日已赚、时钟、天气、工作进度等信息</string>
+    <string name="widget_description_salary">实时显示今日已赚金额</string>
+
+    <string name="settings_title">设置</string>
+    <string name="salary_settings">薪资设置</string>
+    <string name="monthly_salary">月薪 (元)</string>
+    <string name="work_time_settings">工作时间</string>
+    <string name="work_start_time">上班时间</string>
+    <string name="work_end_time">下班时间</string>
+    <string name="lunch_break">午休时长 (分钟)</string>
+    <string name="countdown_settings">倒计时设置</string>
+    <string name="target_date">目标日期</string>
+    <string name="target_label">标签</string>
+    <string name="weather_settings">天气设置</string>
+    <string name="weather_city">城市</string>
+
+    <string name="today_earned">今日已赚</string>
+    <string name="rest_day">今日休息</string>
+    <string name="working">工作中</string>
+    <string name="off_work">已下班</string>
+    <string name="not_started">未开始</string>
+    <string name="focus_moment">专注时刻</string>
+    <string name="click_to_start">点击开始</string>
+    <string name="schedule">日程</string>
+    <string name="save">保存</string>
+</resources>
